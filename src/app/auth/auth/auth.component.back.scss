@@ -1,0 +1,18 @@
+.card-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; /* Establece la altura al 100% del viewport */
+}
+
+.card {
+  /* Estilos adicionales de la tarjeta según tus necesidades */
+  width: 300px; /* Ancho de la tarjeta */
+  height: 400px; /* Altura de la tarjeta */
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 90%; /* Cambia el ancho de la tarjeta para dispositivos más pequeños */
+  }
+}

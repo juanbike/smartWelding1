@@ -1,0 +1,101 @@
+<div class="modal">
+  <div class="modal-content">
+    <form [formGroup]="inspectorForm" (ngSubmit)="onSubmit()">
+      <mat-card>
+        <mat-card-header class="fondo">
+          <mat-card-title>Edición datos del Inspector</mat-card-title>
+          <mat-card-subtitle class="fondo"
+            >Modifique los datos del Inspector</mat-card-subtitle
+          >
+          
+        </mat-card-header>
+
+        <!--Nombre y apellido-->
+        <mat-card-content>
+          <!---Nombre-->
+          <div>
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="12"
+                inputmode="tel"
+                placeholder="Nombre"
+                formControlName="nombre"
+                #nro_juntaInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <!---Apellido-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="12"
+                inputmode="tel"
+                placeholder="Apellido"
+                formControlName="apellido"
+                #tipoInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!---Telefono1-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="12"
+                inputmode="tel"
+                placeholder="Telefono1"
+                formControlName="telefono1"
+                #planoInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!---Telefono2-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="12"
+                inputmode="tel"
+                placeholder="Telefono2"
+                formControlName="telefono2"
+                #hojaInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+
+        <mat-card-footer>
+          <mat-card-actions>
+            <div style="margin: 2%; text-align: right">
+              <button
+                mat-raised-button
+                color="accen"
+                type="submit"
+                (click)="notificarPadreCrudSoldadura(true)"
+              >
+                Cerrar
+              </button>
+              <!--button mat-raised-button type="submit" color="primary">-->
+              <button
+                mat-raised-button
+                type="submit"
+                color="primary"
+                (click)="actualizarTabla()"
+                [disabled]="
+                  !inspectorForm.valid ||
+                  !inspectorForm.value.nombre ||
+                  !inspectorForm.value.apellido ||
+                  !inspectorForm.value.telefono1 ||
+                  !inspectorForm.value.telefono2
+                "
+              >
+                Guardar
+              </button>
+            </div>
+          </mat-card-actions>
+        </mat-card-footer>
+      </mat-card>
+    </form>
+  </div>
+</div>

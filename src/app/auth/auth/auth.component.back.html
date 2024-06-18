@@ -1,0 +1,90 @@
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <div>
+      <div class="content mat-elevation-z8 justify-content-center">
+        <!--<div class="login-form">-->
+        <form class="container2" [formGroup]="loginForm">
+          <img
+            class="avatar logo mat-elevation-z8 mt-5"
+            src="../../assets/img/dvs.png"
+            alt=""
+          />
+
+          <div>
+            <mat-form-field class="mat-400 custom-form-field mt-3">
+              <mat-label>Email</mat-label>
+              <input
+                type="email"
+                matInput
+                formControlName="email"
+                [errorStateMatcher]="matcher"
+                placeholder="Ej. jca@gmail.com"
+                #emailInput
+              />
+
+              @if (emailFormControl.hasError('email') &&
+              !emailFormControl.hasError('required')) {
+              <mat-error
+                >Por favor, ingrese una dirección valida de correo
+                electrónico</mat-error
+              >
+              } @if (emailFormControl.hasError('required')) {
+              <mat-error>El correo es<strong> necesario</strong></mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <!--Password-->
+
+          <div>
+            <mat-form-field class="mat-400 custom-form-field">
+              <mat-label>Password</mat-label>
+
+              <input
+                matInput
+                minlength="6"
+                maxlength="10"
+                #passwordInput
+                formControlName="password"
+                [errorStateMatcher]="matcher"
+                [type]="hide ? 'password' : 'text'"
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+
+              @if (passwordFormControl.hasError('required')) {
+              <mat-error>La contraseña<strong> es necesaria</strong></mat-error>
+              } @if (passwordFormControl.hasError('minlength')) {
+              <mat-error
+                >La contraseña debe ser al menos de 6 carácteres</mat-error
+              >
+              }
+            </mat-form-field>
+          </div>
+          <button
+            (click)="login()"
+            mat-raised-button
+            type="submit"
+            color="primary"
+            [disabled]="
+            !loginForm.valid ||
+            !loginForm.value.email ||
+            !loginForm.value.password
+            "
+          >
+            Login
+          </button>
+        </form>
+        <!--</div>-->
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

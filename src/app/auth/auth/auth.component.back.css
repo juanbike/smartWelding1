@@ -1,0 +1,62 @@
+.mat-sidenav-container {
+  height: calc(100vh - 135px);
+
+}
+
+.content {
+  height: calc(100vh - 325px);
+  border-radius: 10px;
+  margin: 16px;
+  margin-left: 30rem;
+  margin-right: 30rem;
+  margin-top: 5rem;
+  display: flex;
+  font-size: 2rem;
+  color: lightgray;
+}
+
+.avatar {
+  margin-top: 16px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.logo {
+  position: relative;
+  left: 38%;
+  right: 50%;
+  margin-bottom: 3rem;
+}
+
+
+/*
+.mat-400{
+width: 400px;
+margin: 1%;
+}
+*/
+
+.container2 {
+  position: relative;
+  left: 30%;
+  right: 50%;
+  margin-bottom: 3rem;
+}
+
+.mat-card {
+
+    max-width: 400px;
+
+    margin: 2em auto;
+
+    text-align: center;
+
+  }
+
+
+  .mat-form-field {
+
+    display: block;
+
+  }

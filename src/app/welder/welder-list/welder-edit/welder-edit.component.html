@@ -1,0 +1,191 @@
+<div class="modal">
+  <div class="modal-content">
+    <form [formGroup]="welderForm" (ngSubmit)="onSubmit()">
+      <mat-card>
+        <mat-card-header class="fondo">
+          <mat-card-title>Edición de datos del Soldador</mat-card-title>
+          <mat-card-subtitle class="fondo"
+            >Modifique los datos del Soldador</mat-card-subtitle
+          >
+        </mat-card-header>
+
+        <!--nombre y apellido-->
+        <mat-card-content>
+          <!---Nombre-->
+          <div>
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="25"
+                inputmode="tel"
+                placeholder="Nombre"
+                formControlName="nombre"
+                #nombreInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <!---apellido-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="18"
+                inputmode="tel"
+                placeholder="Apellido"
+                formControlName="apellido"
+                #apellidoInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!---identificiacion-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="18"
+                inputmode="tel"
+                placeholder="Identificación"
+                formControlName="identificacion"
+                #identificiacionInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!---Valores-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="12"
+                inputmode="tel"
+                placeholder="Valores"
+                formControlName="valores"
+                #valoresInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!--estampa-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="20"
+                inputmode="tel"
+                placeholder="Estampa"
+                formControlName="estampa"
+                #estampaInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <!---calificacion-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="20"
+                inputmode="tel"
+                placeholder="Calificación"
+                formControlName="calificacion"
+                #nombreInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <!--baseMetal-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="20"
+                inputmode="tel"
+                placeholder="BaseMetal"
+                formControlName="basemetal"
+                #basemetalInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!---numerop-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="20"
+                inputmode="tel"
+                placeholder="NúmeroP"
+                formControlName="numerop"
+                #numeropInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!--telefono-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="20"
+                inputmode="tel"
+                placeholder="Telefono"
+                formControlName="telefono"
+                #telefonoInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+          </div>
+          <!--Email-->
+          <mat-form-field class="mat-35 custom-form-field">
+            <input
+              matInput
+              maxlength="70"
+              inputmode="tel"
+              placeholder="Email"
+              formControlName="email"
+              #emailInput
+            />
+            <mat-error>El campo es obligatorio</mat-error>
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-footer>
+          <mat-card-actions>
+            <div style="margin: 2%; text-align: right">
+              <button
+                mat-raised-button
+                color="accen"
+                type="submit"
+                (click)="notificarPadreCrudSoldadura(true)"
+              >
+                Cerrar
+              </button>
+              <!--button mat-raised-button type="submit" color="primary">-->
+              <button
+
+                mat-raised-button
+                type="submit"
+                color="primary"
+                (click)="actualizarTabla()"
+                [disabled]="
+                  !welderForm.valid ||
+                  !welderForm.value.nombre ||
+                  !welderForm.value.apellido ||
+                  !welderForm.value.identificacion ||
+                  !welderForm.value.valores ||
+                  !welderForm.value.estampa ||
+                  !welderForm.value.calificacion ||
+                  !welderForm.value.basemetal ||
+                  !welderForm.value.numerop ||
+                  !welderForm.value.telefono ||
+                  !welderForm.value.email
+                "
+              >
+                Guardar
+              </button>
+
+              <!---<button mat-raised-button color="warn" (click)="clearform()">
+              Limpiar
+            </button>-->
+            </div>
+          </mat-card-actions>
+        </mat-card-footer>
+
+      </mat-card>
+    </form>
+  </div>
+</div>
+
+
+

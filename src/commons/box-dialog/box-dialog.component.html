@@ -1,0 +1,9 @@
+
+<h2 mat-dialog-title>Confirmar eliminación</h2>
+<mat-dialog-content>
+    <p>¿Estás seguro de que deseas eliminar este registro {{ this.data.id  }}?</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="openConfirmDialog(true)">Eliminar</button>
+    <button mat-button (click)="openConfirmDialog(false)">Cancelar</button>
+</mat-dialog-actions>

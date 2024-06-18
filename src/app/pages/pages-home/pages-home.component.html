@@ -1,0 +1,117 @@
+<mat-toolbar>
+  <button
+    mat-icon-button
+    *ngIf="sidenav.mode === 'over'"
+    (click)="sidenav.toggle()"
+  >
+    <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+    <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav
+    class="mat-elevation-z8"
+    #sidenav="matSidenav"
+    mode="side"
+    opened
+  >
+    <img
+      class="avatar mat-elevation-z8"
+      src="../../assets/img/dvs.png"
+      alt=""
+    />
+
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button">
+      <mat-icon>person</mat-icon>
+     <span><a routerLink="/dashboard/client/clientCreate" routerLinkActive="active" ariaCurrentWhenActive="page">Cliente</a></span>
+    </button>
+	<!--Equipo-->
+   <mat-accordion>
+      <mat-expansion-panel class="menu-accordion mt-2">
+        <mat-expansion-panel-header>
+          <mat-panel-description>
+            <a class="menu-button-description">
+              <mat-icon aria-hidden="true" class="mat-icon-sm">person_add</mat-icon>
+              <span class="icon-text">Equipo</span>
+            </a>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <button mat-button class="menu-button">
+          <mat-icon>person</mat-icon>
+            <span><a routerLink="/dashboard/inspectors/inspectorList" routerLinkActive="active" ariaCurrentWhenActive="page">Inspectores</a></span>
+        </button>
+
+        <button mat-button class="menu-button">
+          <mat-icon>person</mat-icon>
+          <span><a routerLink="/dashboard/welders/welderList" routerLinkActive="active" ariaCurrentWhenActive="page">Soldadores</a></span>
+        </button>
+
+	 </mat-expansion-panel>
+    </mat-accordion>
+	 <!--Materiales-->
+	 <mat-accordion>
+      <mat-expansion-panel class="menu-accordion mt-2">
+        <mat-expansion-panel-header>
+          <mat-panel-description>
+            <a class="menu-button-description">
+              <mat-icon aria-hidden="true" class="mat-icon-sm">table_chart</mat-icon>
+              <span class="icon-text">Materiales</span>
+            </a>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <button mat-button class="menu-button">
+            <span><a routerLink="/dashboard/materials/materialList" routerLinkActive="active" ariaCurrentWhenActive="page">Materiales</a></span>
+        </button>
+
+        <button mat-button class="menu-button">
+            <span>Entregados</span>
+        </button>
+
+        <button mat-button class="menu-button">
+           <span>Consumidos</span>
+        </button>
+	 </mat-expansion-panel>
+    </mat-accordion>
+	<!--Soldadura-->
+	<button mat-button class="menu-button mt-2">
+      <mat-icon>share</mat-icon>
+      <span><a routerLink="/dashboard/brazing/brazingCreate" routerLinkActive="active" ariaCurrentWhenActive="page">Soldadura</a></span>
+    </button>
+	<!--Juntas-->
+	<button mat-button class="menu-button mt-2">
+      <mat-icon>ac_unit</mat-icon>
+      <span><a [routerLink]="['student/studentCreate']">Juntas</a></span>
+
+    </button>
+	<!--Prueba Hidrostatica-->
+    <button mat-button class="menu-button mt-2">
+      <mat-icon>casino</mat-icon>
+      <span><a [routerLink]="['student/studentCreate']">P.Hidrostática</a></span>
+    </button>
+    	<!--Utilidades-->
+      <button mat-button class="menu-button">
+        <span><a routerLink="/dashboard/proyect/dataProyect" routerLinkActive="active" ariaCurrentWhenActive="page">Excel/Poyect</a></span>
+    </button>
+
+	<!--SALIR-->
+	<button mat-button class="menu-button mt-2">
+      <mat-icon>logout</mat-icon>
+      <span>Salir</span>
+    </button>
+    <mat-divider></mat-divider>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="content mat-elevation-z8">
+
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

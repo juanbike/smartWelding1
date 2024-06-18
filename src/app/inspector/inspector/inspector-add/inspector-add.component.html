@@ -1,0 +1,121 @@
+<div class="modal">
+  <div class="modal-content">
+    <form [formGroup]="inspectorForm" (ngSubmit)="onInspectorCreate()">
+      <mat-card>
+        <mat-card-header class="fondo">
+          <mat-card-title>Agregar Inspector</mat-card-title>
+          <mat-card-subtitle class="fondo"
+            >Ingrese los datos del Inspector</mat-card-subtitle
+          >
+        </mat-card-header>
+
+        <!--nombre y apellido-->
+        <mat-card-content>
+          <!---Nombre-->
+          <div>
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="10"
+                inputmode="tel"
+                placeholder="Nombre"
+                formControlName="nombre"
+                #nombreInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <!---apellido-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="12"
+                inputmode="tel"
+                placeholder="apellido"
+                formControlName="apellido"
+                #apellidoInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!---telefono1-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="12"
+                inputmode="tel"
+                placeholder="Telefono-1"
+                formControlName="telefono1"
+                #telefono1Input
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!--telefono2-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="12"
+                inputmode="tel"
+                placeholder="Telefono-2"
+                formControlName="telefono2"
+                #telefono2Input
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+
+        <mat-card-footer>
+          <mat-card-actions>
+            <div style="margin: 2%; text-align: right">
+              <button
+                mat-raised-button
+                color="accen"
+                type="submit"
+                (click)="notificarPadreJunta(true)"
+              >
+                Cerrar
+              </button>
+              <!--button mat-raised-button type="submit" color="primary">-->
+              <button
+
+                mat-raised-button
+                type="submit"
+                color="primary"
+               
+                [disabled]="
+                  !inspectorForm.valid ||
+                  !inspectorForm.value.nombre ||
+                  !inspectorForm.value.apellido ||
+                  !inspectorForm.value.telefono1 ||
+                  !inspectorForm.value.telefono2
+                "
+              >
+                Guardar
+              </button>
+
+              <!---<button mat-raised-button color="warn" (click)="clearform()">
+              Limpiar
+            </button>-->
+            </div>
+          </mat-card-actions>
+        </mat-card-footer>
+        <!--
+        @if (mostrarPlantillaCodigoQr) {
+        <h1>Generardor Código QR de Soldaduras</h1>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARQAAAEUCAYAAADqcMl5AAAAAklEQVR4AewaftIAABJ8SURBVO3BQY4YybLgQDJR978yR0tfBZDIKLXeHzezP1hrrQse1lrrkoe11rrkYa21LnlYa61LHtZa65KHtda65GGttS55WGutSx7WWuuSh7XWuuRhrbUueVhrrUse1lrrkoe11rrkYa21LvnhI5W/qWJSmSomlaliUvmiYlKZKiaVqWJSmSomlaliUvmiYlKZKiaVk4oTlaniC5XfVHGiMlVMKicVk8rfVPHFw1prXfKw1lqXPKy11iU/XFZxk8pJxU0VJypfVEwqU8Wk8kXFicpJxaTyhsobKlPFicpUMam8UTGpTCpTxd9UcZPKTQ9rrXXJw1prXfKw1lqX/PDLVN6ouKniDZWbVE4qTiomlUnlRGWqmComlanipOINlZOKE5UTlanii4pJZVI5UflNKm9U/KaHtda65GGttS55WGutS374H6dyUnFScaJyojJV3KRyUjGpnKi8oTJVnKhMFScVX1RMKm+oTBWTyk0Vk8r/JQ9rrXXJw1prXfKw1lqX/PB/nMobFScVb6icVHyhMlVMKjepvKHyhspJxRsqX1RMKicVk8qkMlX8X/Kw1lqXPKy11iUPa611yQ+/rOJvqvhCZaqYVE4qpopJZVI5qThROak4UZkq3lCZKk5UJpWpYlJ5o2JSOamYVE4qJpVJ5aTipop/ycNaa13ysNZalzystdYlP1ym8i9RmSomlaliUpkqJpUTlaliUpkqJpWp4g2VqeINlaniDZWpYlL5QmWqOKmYVKaKSeWNiknlRGWqOFH5lz2stdYlD2utdcnDWmtdYn/wP0xlqphUTipOVP4lFZPKScWkclLxhsobFZPKScUbKlPFpDJVnKicVEwqU8WkMlX8X/Kw1lqXPKy11iUPa611if3BBypTxRsqU8Wk8kbFFypTxaRyUnGiMlVMKm9UTConFZPKb6r4TSpTxaRyUnGTyknFicpNFScqU8UXD2utdcnDWmtd8rDWWpfYH3yg8kbFicpUMalMFTepnFRMKicVN6mcVJyoTBWTyhsVk8pUcaLyRcWkclIxqUwVb6hMFZPKGxWTylQxqUwVk8obFV88rLXWJQ9rrXXJw1prXfLDRxVvqEwVU8WkMlVMKicVX1RMKl+ovFExVUwqJypTxaRyUjGpTCpvqJxUTCpTxW9SmSomlb+p4qRiUvkvPay11iUPa611ycNaa13yw0cqb1S8UXGTylQxVUwqU8Wk8kbFicqJylRxUvGFylRxojKp/CaVqeJE5YuKSeWk4kRlUnmjYqr4Lz2stdYlD2utdcnDWmtd8sM/RuWk4qRiUpkqJpWpYqp4o+INlaliUjlRmSomlaliqjhROVGZKk5UTlROVKaKSeWkYlKZKm5SmSqmihOVqWJSmSomlaniNz2stdYlD2utdcnDWmtd8sMvq5hUpoqp4kTlpooTlZOKSeWNipOKN1ROVKaKN1TeUJkqJpWTii8q3lB5o2JSmSomlaliUpkqTiomlaliUjmp+OJhrbUueVhrrUse1lrrkh8uq3hD5V+iclLxRcWkclJxonJS8YbKVPGGyhcVb6hMFf8SlaliUjlR+UJlqvhND2utdcnDWmtd8rDWWpfYH/wilS8qJpUvKt5QOamYVL6oOFE5qThReaPib1L5mypOVKaKSeWmiptUporf9LDWWpc8rLXWJQ9rrXXJD7+sYlKZKiaVSeWNiknlpoo3KiaVqeKNijdUTireUHmj4kRlqrhJZaqYVE4q3qiYVKaKSeVEZaqYVKaKqeJEZar44mGttS55WGutSx7WWuuSHz5SOamYKt6omFSmiptU3lD5QmWqOFGZKiaVqeJEZaqYVL5QeUPlpOJEZap4o2JSmSpOVL5QOVGZKk5UTipuelhrrUse1lrrkoe11rrE/uAXqUwVk8oXFV+oTBUnKlPFpPJGxYnKVPGFyhsVJypfVEwqN1VMKlPFGypTxRcqb1T8yx7WWuuSh7XWuuRhrbUu+eE/VnGTyhsVk8pUMVVMKlPFGypTxYnKGxVvVEwqJxWTyhcVk8obFScVk8pUMalMFW+onFTcpHJSMalMFV88rLXWJQ9rrXXJw1prXfLDZSpTxYnKFxVTxaQyVXyhMlW8oXKiMlW8oTKpTBUnKicVk8pUcaIyqZxUTCpvqEwVb1RMKlPFpDJVTCqTylQxqUwVk8pUMalMKr/pYa21LnlYa61LHtZa6xL7gw9UflPFpDJVnKhMFScqb1RMKlPFicpUMamcVJyonFRMKlPFpDJVTCpTxYnKVPGGym+quEllqphUvqj4Lz2stdYlD2utdcnDWmtd8sNHFZPKScWkcqLyhspvqjipmFS+qLipYlI5UZkqbqqYVKaKSWWquEllUpkq3lB5o+JEZao4UZkqftPDWmtd8rDWWpc8rLXWJT98pPKbKv4lKlPFpPKFyknFpDJVnKicVEwqJyonKicVU8UbKlPFGypTxaRyonJS8YXKVPGFylRx08Naa13ysNZalzystdYlP1xWMamcVEwqk8pUMamcVLxRMalMFW9UTCpTxRsqN1W8oTJVTCpTxYnKVDGpTBWTyqRyUjFVnFScVEwqX6hMFZPKVPEveVhrrUse1lrrkoe11rrkh48qJpWpYlJ5o+KNijdU3lA5qXhD5aRiqphU3qi4SWWq+ELljYo3VN6omFROKiaVL1ROVKaKk4rf9LDWWpc8rLXWJQ9rrXWJ/cEvUrmpYlJ5o+ILlZOKN1TeqHhDZao4UZkqJpWTikllqjhRmSp+k8pUMam8UXGiMlVMKm9UnKhMFZPKVPHFw1prXfKw1lqXPKy11iX2B3+RyhsVk8obFb9JZao4UZkqTlROKiaVqeJE5aTiRGWqOFGZKn6TylRxovJFxU0qU8WJylQxqZxUfPGw1lqXPKy11iUPa611if3BBypTxaTyv6xiUjmpmFROKiaVqeINlZOKSeWmikllqjhRmSpOVE4qvlA5qThRmSomlZsq/ksPa611ycNaa13ysNZal/zwyyomlZOKN1SmiknlpGJS+ULlJpWTipsq3lCZVKaKE5UTlZOKE5WpYlKZKqaKE5WbKt5QmVSmihOVqeKLh7XWuuRhrbUueVhrrUt++MepTBUnKicVX1RMKlPFGypTxaTyRcUXKlPFFypTxYnKVDGp3KQyVUwqJxWTyhcqU8UbKn/Tw1prXfKw1lqXPKy11iU/XKZyUjGpnFR8UXGiMlWcqEwVk8pJxVQxqZxUnFScqLxR8ZtUpop/icpUMalMKicqb1S8UXGiMlXc9LDWWpc8rLXWJQ9rrXXJDx9VnKi8ofJfUvmiYlI5UTmpmFROKk4qJpVJ5b+kcqIyVUwqX1R8UTGpTBWTyqTyhcpUMVVMKlPFFw9rrXXJw1prXfKw1lqX/PCRyknFScUXKlPFFxUnKjdVTCqTyknFpHJScVJxk8pUMalMFW+oTBUnKm+oTBVTxaQyVZxUnKjcpPKbHtZa65KHtda65GGttS6xP7hI5Y2KE5Wp4iaVk4oTlaniROWk4kTlpOJE5YuKE5U3Kk5UflPFpPJGxYnKVDGpvFFxonJS8Zse1lrrkoe11rrkYa21LvnhI5Wp4guVqWJSmSpuqphU3lB5o+KLihOVqWJSOamYVKaKm1SmikllqvhNFZPKicpUMalMFZPKVPFGxaQyqUwVNz2stdYlD2utdcnDWmtd8sNHFScqJxUnKlPFpDJVTConFScVJypTxU0qU8WkMlW8UTGpvKFyUjGpfFExqUwVk8pUMal8oXKiMlVMKlPFicpUMam8oTJVfPGw1lqXPKy11iUPa611if3BBypTxaTyRsWJyhsVk8pJxaQyVZyofFHxhcoXFScqU8WkMlW8oXJScaIyVXyhMlVMKicVJypTxaQyVUwqU8V/6WGttS55WGutSx7WWuuSHz6qOKmYVKaKSeWNiknlpOILlanijYo3VE4qvqiYVE4qTireUHlD5V9ScZPKFypTxaQyVdz0sNZalzystdYlD2utdYn9wS9SmSpOVKaKL1ROKk5UpoovVKaKSWWq+ELli4oTlTcqJpWpYlL5myomlS8qJpU3Kr5QOam46WGttS55WGutSx7WWuuSH/4ylaliqphUpopJZaqYKk5UTipOVE4qpopJ5QuVqWKqmFSmihOVk4o3VE5UvqiYVKaKSeWkYlKZKiaVNypOVE4q3qiYVKaKLx7WWuuSh7XWuuRhrbUusT+4SOWk4kRlqphUTiomlaniRGWqOFF5o2JSmSomlZOKSeWNihOVLypOVKaKN1R+U8W/TGWqmFTeqPjiYa21LnlYa61LHtZa6xL7gw9UpopJ5W+qeENlqphUpooTlaniROWmihOVk4pJ5aRiUjmpuEnlpGJSmSreUDmpmFTeqPhC5aRiUpkqvnhYa61LHtZa65KHtda65IePKiaVqWJSOak4UXlDZaqYKiaVN1Smii8q3lB5o2JSmVSmihOVqeK/VDGpTBUnKm9UTCpTxRsqU8WkMlW8oTJV3PSw1lqXPKy11iUPa611yQ9/WcWkcqJyUjGpTBUnKicVX6h8oTJVvKFyUjGpTCpTxRsqJxV/k8pUcVLxhcpUMalMFScVJxVvqEwVXzystdYlD2utdcnDWmtd8sNfpvJGxYnKicpUMVVMKicqb1RMKlPFpHKi8kbFicpUcaIyVUwqJxWTylTxRsUXKl+oTBWTyhcqU8WkclLxNz2stdYlD2utdcnDWmtd8sNHKlPFpDJVTConKlPFf6liUvlNFZPKVDGpTBVvqEwVJyq/SWWqOFGZKiaVqeJE5aRiUjlReaPipOJEZar4TQ9rrXXJw1prXfKw1lqX2B98oDJV/CaVqWJSualiUnmjYlKZKt5QOan4l6lMFZPKGxWTylRxk8pUcZPKVDGpTBVvqJxUfPGw1lqXPKy11iUPa611if3BBypTxaTyRsWkMlW8ofJFxYnKVDGpTBWTylTxhspJxaQyVZyonFRMKm9UTConFZPKVHGiMlXcpDJVTCpTxRcqU8V/6WGttS55WGutSx7WWusS+4OLVL6oOFE5qZhUvqiYVKaKSWWquEllqphUTiomlZsq3lD5ouJE5Y2KN1TeqJhUpooTlaliUnmj4qaHtda65GGttS55WGutS+wPfpHKTRWTyhsVk8pUMalMFW+o/E0Vk8obFScqU8WkMlVMKicVk8pU8YbKVHGiMlW8ofJGxRsqU8WkMlVMKicVXzystdYlD2utdcnDWmtdYn/wgcobFZPKVHGiclIxqZxUnKhMFScqJxWTyknFpDJVfKFyUvGFylQxqUwVk8pJxRsqb1RMKicVk8pJxYnKGxWTyknFTQ9rrXXJw1prXfKw1lqX/PCXqUwVJypTxaTyRsUXKjdVTConFZPKVHGTyhcVk8qJyknFicpJxaQyVZxUTCpvVEwqv6nib3pYa61LHtZa65KHtda6xP7gf5jKGxUnKl9UnKhMFV+oTBWTyhsVb6i8UXGiMlWcqJxUTCpTxYnKVHGiMlWcqEwVb6icVEwqU8VND2utdcnDWmtd8rDWWpfYH3yg8jdVTCpTxU0qU8Wk8psq3lCZKiaVk4pJZaqYVL6oeENlqphUpoqbVE4qTlROKiaVqWJS+aLipoe11rrkYa21LnlYa61Lfris4iaVk4pJZao4UZkqpoo3Kn6TylQxVdxU8V9SOVF5Q+WkYlI5qThRmSomlZOKNyomlaniNz2stdYlD2utdcnDWmtd8sMvU3mj4g2VqWJS+ULlpOINlTcqpoo3VN5Q+aLiDZU3Kt5QmSomlUllqphUJpWbVG6qmFROKr54WGutSx7WWuuSh7XWuuSH/3EVk8pUMamcqEwVk8qJyknFicqkMlVMKlPFScVNKicqU8UbFV9UnFScqEwVk8pJxUnFFyqTyknFpHLTw1prXfKw1lqXPKy11iU//H+u4guVqWJSmVSmipOKLyomlTcqTiomlROVN1TeqHhD5YuKSWVS+aLipGJSmSomlanipoe11rrkYa21LnlYa61L7A8+UJkqblKZKt5Q+U0Vk8pUcaLyRsWJylQxqdxUcaJyUvGGyknFTSonFV+ofFFxonJScdPDWmtd8rDWWpc8rLXWJfYHH6j8TRWTylRxonJScaIyVUwqJxVvqNxUMalMFZPKVDGpTBUnKm9UTConFZPKVDGpTBUnKlPFpHJSMamcVLyh8kXFFw9rrXXJw1prXfKw1lqX2B+stdYFD2utdcnDWmtd8rDWWpc8rLXWJQ9rrXXJw1prXfKw1lqXPKy11iUPa611ycNaa13ysNZalzystdYlD2utdcnDWmtd8rDWWpf8P+G4tqa+h4y+AAAAAElFTkSuQmCC" alt="Imagen PNG">
+        <qrcode
+          elementType="img"
+          (qrCodeURL)="onCodeChange($event)"
+          [width]="400"
+          [qrdata]="soldaduraString"
+          [allowEmptyString]="true"
+          [errorCorrectionLevel]="'H'"
+        ></qrcode>
+        <a [href]="url" download="yesgnome">Descargar Código QR</a>
+        }-->
+      </mat-card>
+    </form>
+  </div>
+</div>
+
+

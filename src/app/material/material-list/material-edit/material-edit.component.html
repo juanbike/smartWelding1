@@ -1,0 +1,139 @@
+<div class="modal">
+  <div class="modal-content">
+    <form [formGroup]="materialForm" (ngSubmit)="onSubmit()">
+      <mat-card>
+        <mat-card-header class="fondo">
+          <mat-card-title>Edición de datos del Material</mat-card-title>
+          <mat-card-subtitle class="fondo"
+            >Modifique los datos del Material</mat-card-subtitle
+          >
+        </mat-card-header>
+
+        <!--Tipo y Colada-->
+        <mat-card-content>
+          <!--Tipo-->
+          <div>
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="25"
+                inputmode="tel"
+                placeholder="Tipo Material"
+                formControlName="tipo"
+                #tipoInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <!---colada-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="8"
+                inputmode="tel"
+                placeholder="Colada"
+                formControlName="colada"
+                #coladaInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!---schedule-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="2"
+                inputmode="tel"
+                placeholder="Schedule"
+                formControlName="schedule"
+                #scheduleInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!---Tipo Extremo-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="12"
+                inputmode="tel"
+                placeholder="Tipo Extremo"
+                formControlName="textremo"
+                #textremoInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <!--Tipo Material-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="20"
+                inputmode="tel"
+                placeholder="Tipo Material"
+                formControlName="tmaterial"
+                #tmaterialInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <!---Material-->
+            <mat-form-field class="mat-35 custom-form-field">
+              <input
+                matInput
+                maxlength="25"
+                inputmode="tel"
+                placeholder="Material"
+                formControlName="material"
+                #nombreInput
+              />
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+          </div>
+
+
+        </mat-card-content>
+
+        <mat-card-footer>
+          <mat-card-actions>
+            <div style="margin: 2%; text-align: right">
+              <button
+                mat-raised-button
+                color="accen"
+                type="submit"
+                (click)="notificarPadreCrudSoldadura(true)"
+              >
+                Cerrar
+              </button>
+              <!--button mat-raised-button type="submit" color="primary">-->
+              <button
+
+                mat-raised-button
+                type="submit"
+                color="primary"
+                (click)="actualizarTabla()"
+                [disabled]="
+                  !materialForm.valid ||
+                  !materialForm.value.tipo ||
+                  !materialForm.value.colada ||
+                  !materialForm.value.schedule ||
+                  !materialForm.value.textremo ||
+                  !materialForm.value.tmaterial ||
+                  !materialForm.value.material
+                "
+              >
+                Guardar
+              </button>
+
+              <!---<button mat-raised-button color="warn" (click)="clearform()">
+              Limpiar
+            </button>-->
+            </div>
+          </mat-card-actions>
+        </mat-card-footer>
+
+      </mat-card>
+    </form>
+  </div>
+</div>
+
+
+
+

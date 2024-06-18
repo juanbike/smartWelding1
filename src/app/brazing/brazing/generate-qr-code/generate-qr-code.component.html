@@ -1,0 +1,49 @@
+<div class="modal">
+  <div class="modal-content">
+    <!--<form [formGroup]="soldaduraForm" (ngSubmit)="onSoldaduraCreate()">-->
+    <mat-card>
+      <mat-card-header class="fondo">
+        <mat-card-title>Generación de Código QR (Soldaduras)</mat-card-title>
+      </mat-card-header>
+
+      <!---Código Qr------>
+      <mat-card-content>
+        <img
+          class="imagen-pequena"
+          [src]="soldadura.qrcode"
+          alt="Código Qr de la Soldadura"
+        />
+      </mat-card-content>
+
+      <mat-card-footer>
+        <mat-card-actions>
+          <!--botoón Cerrar-->
+          <div style="margin: 2%; text-align: right">
+            <button
+              mat-raised-button
+              color="accen"
+              type="submit"
+              (click)="notificarPadreJunta2(true)"
+            >
+              Cerrar
+            </button>
+            <!--botón Descargar-->
+            <button (click)="descargarImagen()" mat-raised-button color="accen">
+              Descargar QR
+              <a
+                [href]="soldadura.qrcode"
+                [download]="soldadura.qrcode"
+                style="display: none"
+              >
+              </a>
+            </button>
+            <!--botón Imprimir-->
+            <button (click)="imprimir()" mat-raised-button color="accen">Imprimir</button>
+          </div>
+        </mat-card-actions>
+      </mat-card-footer>
+    </mat-card>
+    <!--</form>-->
+  </div>
+</div>
+

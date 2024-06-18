@@ -1,0 +1,110 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 20%;
+}
+
+
+
+.th-center{
+  text-align: center;
+}
+.th-left{
+  text-align: left;
+}
+.th-right{
+  text-align: right;
+}
+
+
+/* Agregar estilos para la alineación horizontal de los botones */
+.example-button-row-horizontal {
+  display: flex; /* Utilizar flexbox para alinear elementos horizontalmente */
+  gap: 40px; /* Espacio entre los botones */
+}
+
+
+/*
+#myTable th {
+  background-color: blue;
+  color: white;
+  padding:10px;
+ }
+
+ #miTable tbody tr:nth-child(even) {
+  background-color: rgb(145, 156, 44);
+ }
+
+ #miTable tbody tr:nth-child(odd) {
+  background-color: rgb(136, 132, 132);
+ }
+*/
+
+.mytable {
+  width: 100%;
+}
+
+#myTable th {
+  background-color: blue;
+  color: white;
+  padding:10px;
+ }
+
+/* Estilos para las celdas de la tabla */
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.3s; /* Agregado: transición suave en el cambio de color del borde */
+}
+
+/* Cambia el color del borde cuando el mouse está sobre una fila */
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: #888adb; /* Cambia el color a un tono de gris cuando se pasa el mouse */
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #c5c5c8; /* Cambia el color a un tono de gris cuando se pasa el mouse */
+}
+
+/* Estilos para resaltar una fila cuando es clicada */
+.demo-row-is-clicked {
+  font-weight: bold;
+  background-color: #8289ed; /* Agregado: color de fondo cuando la fila está clicada */
+}
+
+
+/* Estilos para filas pares */
+.odd-row {
+  background-color: #f5f5f5; /* Color de fondo para filas pares */
+}
+
+/* Estilos para filas impares */
+.even-row {
+  background-color: #757474; /* Color de fondo para filas impares */
+}
+
+
+.mat-cell.qrcode {
+  width: 30px;
+}
+
+
+.contenedor {
+  display: flex;
+  justify-content: flex-start; /* Alinea los elementos al comienzo */
+}
+
+.centrado {
+  margin-left: 25px; /* Empuja el elemento al comienzo */
+}
+
+/*emi = espacion en margen izquiero  */
+.emi {
+  margin-left: 26%; /* Empuja el elemento al comienzo */
+  margin-top: 20px;
+}
+

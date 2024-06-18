@@ -1,0 +1,231 @@
+<!-- Contenedor para los botones (renderizados horizontalmente) -->
+<div class="contenedor">
+  <!-- Primer botón FAB con ícono de eliminar -->
+  <div>
+    <mat-form-field>
+      <mat-label>Filtrar Tabla</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Buscar"
+        #input
+      />
+    </mat-form-field>
+  </div>
+
+  <!-- segundo botón FAB con ícono de casa -->
+  <div class="centrado">
+    <button
+      mat-fab
+      color="warn"
+      (click)="OnAddSoldadores()"
+      aria-label="Example icon button with a home icon"
+    >
+      <mat-icon>library_add</mat-icon>
+    </button>
+  </div>
+  <!-- tercer botón FAB con ícono de casa -->
+  <div class="emi">
+    <h1>Administrador de Soldaduras</h1>
+  </div>
+</div>
+
+<div class="mat-elevation-z8 myTable">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nro_junta">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>NroJunta</th>
+      <td mat-cell *matCellDef="let row">{{ row.nro_junta }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+      <td mat-cell *matCellDef="let row">{{ row.tipo }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="plano">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Plano</th>
+      <td mat-cell *matCellDef="let row">{{ row.plano }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="hoja">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Hoja</th>
+      <td mat-cell *matCellDef="let row">{{ row.hoja }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="revision">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Revisión</th>
+      <td mat-cell *matCellDef="let row">{{ row.revision }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="area">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Area</th>
+      <td mat-cell *matCellDef="let row">{{ row.area }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fase">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>fase</th>
+      <td mat-cell *matCellDef="let row">{{ row.fase }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="linea">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Línea</th>
+      <td mat-cell *matCellDef="let row">{{ row.linea }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="diametro">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Díametro</th>
+      <td mat-cell *matCellDef="let row">{{ row.diametro }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="espesor">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Espesor</th>
+      <td mat-cell *matCellDef="let row">{{ row.espesor }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="cedula">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Cedula</th>
+      <td mat-cell *matCellDef="let row">{{ row.cedula }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="pn1">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Pn1</th>
+      <td mat-cell *matCellDef="let row">{{ row.pn1 }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="pn2">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Pn2</th>
+      <td mat-cell *matCellDef="let row">{{ row.pn2 }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="wds">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Wps</th>
+      <td mat-cell *matCellDef="let row">{{ row.wps }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let row">
+        <!--Creamos un vinculo de eventos para que al hacer click en el boton se ejecute el metodo OnDeleteClicked-->
+        <!--<button mat-icon-button color="warn" (click)="OnDeleteClicked(row.id)">-->
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <!--Eliminar-->
+          <button mat-menu-item>
+            <mat-icon color="warn" (click)="openConfirmDialog(row.id)"
+              >delete</mat-icon
+            >
+            <span>Eliminar Registro</span>
+          </button>
+          <!--Generar QR-->
+          <button mat-menu-item>
+            <mat-icon color="warn" (click)="obtenerIdDelRegistro(row.id)"
+              >select_all</mat-icon
+            >
+            <span>Generar Código QR</span>
+          </button>
+
+          <!--Disable alerts-->
+          <button mat-menu-item>
+            <mat-icon color="warn" (click)="mostrarFormularioEditarSoldadura(row.id)" > border_color</mat-icon>
+            <span>Editar Registro</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        No hay datos que coincidan con el filtro. "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[10, 25, 100]"
+    aria-label="Select page of users"
+  ></mat-paginator>
+
+  <!-- Modal para agregar soldaduras-->
+  @if(showModalAgregarSoldadores){
+  <div>
+    <app-modal-brazing
+      (miEventoAlPadre)="recibirDatosdeMA($event)"
+    ></app-modal-brazing>
+  </div>
+  }
+
+  <!--Modal para Generar Código QR enlazamos el evento click del boton con el metodo obtenerIdDelRegistro
+  Enlazamos la propiedad idSoldaduraHijo del componente hijo con la propiedad idSoldaduraPadre del componente padre
+  -->
+
+  @if(showModalGenerarCodigoQR){
+  <div>
+    <!--Enviamos el id de la soldadura padre al componente hijo
+     idSoldaduraHijo="{{idSoldaduraPadre}}"
+     -->
+
+    <!--Enlazamos la propiedad miEventoAlPadre2 del componente hijo (generar-qr) con el método recibirDatosdeMA2() en el padre
+    (miEventoAlPadre2)="recibirDatosdeMA2($event)"
+    -->
+    <app-generate-qr-code
+      idSoldaduraHijo="{{ idSoldaduraPadre }}"
+      (miEventoAlPadre2)="recibirDatosdeMA2($event)"
+    ></app-generate-qr-code>
+  </div>
+  }
+
+  <!-- Mensaje de confirmación de eliminación -->
+  @if(messageText){
+  <div class="alert alert-success" role="alert">
+    {{ messageText }}
+  </div>
+  }
+</div>
+
+<!--Modal para editar la soldadura
+-->
+
+@if(showModalEditarSoldadura){
+<div>
+  <app-edit-brazing
+  idSoldaduraHijo="{{ idSoldaduraPadre }}"
+  (miEventoAlPadreCrudSoldadura)="recibirDatosdelHijoEditarSoldadura($event)"
+  ></app-edit-brazing>
+</div>
+
+}
+
+<!--
+@if(showConfirmDeleteComponent){
+  <div>
+    <app-modal
+      [juntaHijo]="juntaPadre"
+      (miEvento)="recibirDatos($event)"
+    ></app-modal>
+  </div>
+  }
+</div>
+1- si showConfirmDeleteComponent es "true" mostrará el modal de confirmación de eliminación de junta hijo
+2- [juntaHijo]="juntaPadre" es la variable que contiene la junta hijo que se va a eliminar y que se pasa al modal tiene los datos de la junta
+  creamos un vinculo de propiedades entre las propiedades de la clase modal [juntaHijo] y las de la clase padre "juntaPadre"
+3- (miEvento)="recibirDatos($event)" vinculamos en evento del modal (miEvento) con el metodo recibirDatos en el padre que se ejecutará cuando se haga click en el boton de confirmación de eliminar del modal
+
+-->
+
