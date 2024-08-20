@@ -29,7 +29,7 @@
      <span><a routerLink="/dashboard/client/clientCreate" routerLinkActive="active" ariaCurrentWhenActive="page">Cliente</a></span>
     </button>
 	<!--Equipo-->
-   <mat-accordion>
+   <mat-accordion >
       <mat-expansion-panel class="menu-accordion mt-2">
         <mat-expansion-panel-header>
           <mat-panel-description>
@@ -85,7 +85,9 @@
 	<!--Juntas-->
 	<button mat-button class="menu-button mt-2">
       <mat-icon>ac_unit</mat-icon>
-      <span><a [routerLink]="['student/studentCreate']">Juntas</a></span>
+
+      <span><a routerLink="/dashboard/junta/juntaCreate" routerLinkActive="active" ariaCurrentWhenActive="page">Crear Junta</a></span>
+
 
     </button>
 	<!--Prueba Hidrostatica-->
@@ -94,9 +96,40 @@
       <span><a [routerLink]="['student/studentCreate']">P.Hidrostática</a></span>
     </button>
     	<!--Utilidades-->
-      <button mat-button class="menu-button">
-        <span><a routerLink="/dashboard/proyect/dataProyect" routerLinkActive="active" ariaCurrentWhenActive="page">Excel/Poyect</a></span>
-    </button>
+      <mat-accordion>
+        <mat-expansion-panel class="menu-accordion mt-2">
+
+            <mat-expansion-panel-header>
+            <mat-panel-description>
+              <a class="menu-button-description">
+                <mat-icon aria-hidden="true" class="mat-icon-sm">table_chart</mat-icon>
+                <span class="icon-text">Importar</span>
+              </a>
+            </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <button mat-button class="menu-button">
+              <span><a routerLink="/dashboard/proyect/dataProyect" routerLinkActive="active" ariaCurrentWhenActive="page">Proyectos</a></span>
+            </button>
+
+           <button mat-button class="menu-button">
+              <span>Linea</span>
+           </button>
+
+            <button mat-button class="menu-button">
+             <span>Especificaciones</span>
+            </button>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+
+
+
+
+
+
+
+
 
 	<!--SALIR-->
 	<button mat-button class="menu-button mt-2">

@@ -1,0 +1,16 @@
+export interface junta {
+  "proyecto": string,
+  "inspector": string,
+  "soldador": string,
+  "nominal0": string,
+  "nominal1": string,
+  "linea": string,
+  "especificacion": string,
+  "schedule": string,
+  "textremo": string,
+  "tmaterial": string,
+  "material": string,
+  "pulconta": string,
+  "factpuldia": string,
+  "puldia": string,
+}

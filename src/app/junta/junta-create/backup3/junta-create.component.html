@@ -1,0 +1,229 @@
+<!---
+<section class="container">
+  <header>Registration Form</header>
+
+  <form class="form" [formGroup]="reactiveForm" (ngSubmit)="onFormSubmitted()">
+    <div class="column">
+      <div class="input-box">
+        <input type="text" placeholder="First Name" formControlName="fname"/>
+        <small *ngIf="reactiveForm.get('fname')?.invalid && reactiveForm.get('fname')?.touched ">El primer nombre es requerido</small>
+      </div>
+      <div class="input-box">
+        <input type="text" placeholder="Last Name" formControlName="lname"/>
+        <small *ngIf="reactiveForm.get('lname')?.invalid && reactiveForm.get('lname')?.touched ">El apellido es requerido</small>
+      </div>
+    </div>
+
+    <div class="input-box">
+      <input type="text" placeholder="Email" formControlName="email" />
+      <small *ngIf="reactiveForm.get('email')?.invalid && reactiveForm.get('email')?.touched ">El correo es requerido</small>
+    </div>
+
+    <div class="column">
+      <div class="input-box">
+        <input type="text" placeholder="username" formControlName="username" />
+        <button class="btn-gen-username" type="button">
+          Create a Username
+        </button>
+      </div>
+      <div class="input-box">
+        <input type="date" placeholder="Date of Birth" formControlName="dob" />
+      </div>
+    </div>
+
+
+
+    <div class="gender-box">
+      <h3>Gender</h3>
+      <div class="gender-option">
+        <div class="gender">
+          <input type="radio" value="male" id="check-male" formControlName="gender"/>
+          <label for="check-male">Male</label>
+        </div>
+        <div class="gender">
+          <input type="radio" value="female" id="check-female" formControlName="gender"/>
+          <label for="check-female">Female</label>
+        </div>
+        <div class="gender">
+          <input type="radio" value="other" id="check-other" formControlName="gender"/>
+          <label for="check-other">Prefer not to say</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-box address" formGroupName="address">
+      <label>Address</label>
+      <input type="text" placeholder="Street address" formControlName="street"/>
+      <small *ngIf="reactiveForm.get('address.street')?.invalid && reactiveForm.get('address.street')?.touched ">La dirección es requerido</small>
+      <div class="column">
+        <div class="select-box">
+          <select name="country" formControlName="country">
+            <option hidden>Country</option>
+            <option>America</option>
+            <option>Japan</option>
+            <option>India</option>
+            <option>Nepal</option>
+          </select>
+          <small *ngIf="reactiveForm.get('address.country')?.invalid && reactiveForm.get('address.country')?.touched ">La ciudad es requerida</small>
+        </div>
+        <input type="text" placeholder="City" formControlName="city"/>
+      </div>
+      <div class="column">
+        <input type="text" placeholder="Region" formControlName="region"/>
+        <input type="number" placeholder="Postal code" formControlName="postal"/>
+        <small *ngIf="reactiveForm.get('address.postal')?.invalid && reactiveForm.get('address.postal')?.touched ">El código postal es requerido</small>
+
+      </div>
+    </div>
+    <div class="input-box" formArrayName="skills">
+      <input type="text"
+       placeholder="Add Skill...">
+
+
+    </div>
+
+
+    <input type="submit" value="Submit" class="submit-btn" [disabled]="!reactiveForm.valid">
+
+  </form>
+</section>
+-->
+
+
+<div
+  style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  "
+>
+  <form [formGroup]="userProfileForm" (ngSubmit)="onFormSubmitted()">
+    <!-- Seccion sobre el proyecto -->
+    <div formGroupName="personalInfo" class="nestedFb">
+      <div>
+        <label for="proyecto">Proyecto:</label>
+        <input type="text" id="proyecto" formControlName="proyecto" name="proyecto" />
+        <div *ngIf="userProfileForm.get('personalInfo.proyecto')?.invalid && userProfileForm.get('personalInfo.proyecto')?.touched">
+          <small *ngIf="userProfileForm.get('personalInfo.proyecto')?.errors?.['required']">El nombre del proyecto es requerido</small>
+        </div>
+      </div>
+
+      <div>
+        <label for="inspector">Inspector:</label>
+        <input type="email" id="inspector" formControlName="inspector" name="inspector" />
+
+        <!--<small *ngIf="userProfileForm.get('inspector')?.invalid && userProfileForm.get('inspector')?.touched ">El nombre del inspector es requerido</small>-->
+
+      </div>
+
+      <div>
+        <label for="soldador">Soldador:</label>
+        <input type="email" id="soldador" formControlName="soldador" name/>
+      </div>
+    </div>
+     <!-- Seccion sobre las juntas -->
+    <div formGroupName="addresses">
+      <h1>Agregar Junta:</h1>
+      @for(addressGroup of addressGroups.controls; track $index){
+      <div [formGroupName]="$index" class="nestedFb">
+        <h2> Junta{{ $index + 1 }}</h2>
+        <div>
+          <label for="nominal0">Nominal-0:</label>
+          <input type="text" id="nominal0" formControlName="nominal0" name="nominal0" />
+        </div>
+
+        <div>
+          <label for="nominal1">Nominal-1:</label>
+          <input type="text" id="nominal1" formControlName="nominal1" name= "nominal1" />
+        </div>
+
+        <div class="zipcode">
+          <label for="linea">Linea:</label>
+          <input type="text" id="linea" formControlName="linea" name="linea" />
+        </div>
+
+        <div>
+          <button type="button" (click)="removeAddress($index)">
+            Remove Address
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+
+    <button type="button" (click)="addAddress()">Add Address</button>
+    <!-- Address Section -->
+    <button type="submit"  value="Submit" [disabled]="!userProfileForm.valid">Submit</button>
+    {{ userProfileForm.value | json }}
+  </form>
+</div>
+
+
+
+
+
+
+
+
+<!--
+ HTML for Skills Form Array
+ <div class="input-box skills" formArrayName="skills">
+  <h4>Add Skills</h4>
+  <div class="column">
+    <input type="text" placeholder="Add Skill...">
+    <button type="button" class="btn-add-delete">Delete</button>
+  </div>
+</div>
+<button type="button" class="btn-add-delete">Add Skills</button>
+
+<!-HTML for Experience Form Array
+<div class="input-box">
+  <div class="experience">
+    <label>Experience</label>
+    <input type="text" placeholder="Company Name" />
+    <div class="column">
+      <div class="select-box">
+        <select>
+          <option hidden>Position</option>
+          <option>Junior Developer</option>
+          <option>Software Developer</option>
+          <option>Senior Developer</option>
+          <option>Team Lead</option>
+        </select>
+      </div>
+      <input type="number" placeholder="Experience" />
+    </div>
+    <div class="column">
+      <input type="date" placeholder="Start Date" />
+      <input type="date" placeholder="End Date" />
+    </div>
+    <button type="button" class="btn-add-delete">Delete Experience</button>
+  </div>
+</div>
+<button type="button" class="btn-add-delete">Add Experience</button>
+-->
+<!--uncomment below HTML for displaying form data-->
+
+<!-- <section class="user-detail-container">
+  <div class="user-details-container">
+    <div class="user-avatar">
+      <p>JS</p>
+    </div>
+    <div class="user-details">
+      <div class="user-name">
+        <h2>John Smith</h2>
+      </div>
+      <p><b>Email:</b> johnsmith@gmail.com</p>
+      <p><b>Username:</b> johnsmith86 </p>
+      <p><b>Date of birth:</b> July 21, 1989</p>
+      <div class="user-name">
+        <h3>Address</h3>
+      </div>
+      <span>India</span>.
+      <span> New Delhi</span>.
+      <span> NCR</span>.
+      <span> 234565</span>
+    </div>
+  </div>
+</section> -->

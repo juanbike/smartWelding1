@@ -1,0 +1,93 @@
+<section class="container" [ngClass]="{'form-shadow': registrationForm.touched}">
+    <header>Registration Form</header>
+
+    <!--
+    1- ngSubmit captura el evento "submit" cuando el usuario presiona el botón "enviar"
+    2- Se ejecuta el método "OnFormSubmited()"
+    3- Para tener acceso a las propiedades del formulario utilizamos una referencia al mismo [#registrationForm] y
+     a cada input le asignamos un nombre con la clausula [name]
+    -->
+    <form class="form" (ngSubmit)="OnFormSubmited()" #registrationForm="ngForm">
+      <div class="column">
+        <div class="input-box">
+          <input type="text" placeholder="First Name" name="fname" [(ngModel)]="fname" required #fnv="ngModel"/>
+          <div>
+            <small *ngIf="fnv.invalid && fnv.touched">"El primer nombre es requerido"</small>
+            <span *ngIf="fname">Tu nombre es: {{fname}}</span>
+          </div>
+        </div>
+
+        <div class="input-box">
+          <input type="text" placeholder="Last Name" name="lname" [(ngModel)]="lname" required/>
+        </div>
+        <div>
+          <span *ngIf="lname">Apellido:{{lname}}</span>
+        </div>
+      </div>
+
+      <div class="input-box">
+        <input type="text" placeholder="Email" name="email" [(ngModel)]="email" required/>
+        <div>
+          <span *ngIf="email">Email:{{email}}</span>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="input-box">
+          <input type="number" placeholder="Phone Number" name="pnumber" ngModel/>
+        </div>
+        <div class="input-box">
+          <input type="date" placeholder="Date of Birth" name="dateBirth" ngModel/>
+        </div>
+      </div>
+
+      <div class="input-box">
+        <input type="text" placeholder="username" name="username" ngModel/>
+        <button class="btn-gen-username">
+          Create a Username
+        </button>
+      </div>
+
+      <div class="gender-box">
+        <h3>Gender</h3>
+        <div class="gender-option">
+          <div class="gender">
+            <input type="radio" id="check-male" name="gender" checked ngModel />
+            <label for="check-male">male</label>
+          </div>
+          <div class="gender">
+            <input type="radio" id="check-female" name="gender" ngModel/>
+            <label for="check-female">Female</label>
+          </div>
+          <div class="gender">
+            <input type="radio" id="check-other" name="gender" ngModel />
+            <label for="check-other">prefer not to say</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-box address" ngModelGroup="address" #add = "ngModelGroup">
+        <label>Address</label>
+        <input type="text" placeholder="Street address" name="street1" ngModel required/>
+        <input type="text" placeholder="Street address line 2" name="street2" ngModel/>
+        <div class="column">
+          <div class="select-box">
+            <select name="country" ngModel required>
+              <option hidden>Country</option>
+              <option>America</option>
+              <option>Japan</option>
+              <option>India</option>
+              <option>Nepal</option>
+            </select>
+          </div>
+          <input type="text" placeholder="City" name="city" ngModel required/>
+        </div>
+        <div class="column">
+          <input type="text" placeholder="Region" name="region" ngModel/>
+          <input type="number" placeholder="Postal code" name="postalcode" ngModel required/>
+        </div>
+      </div>
+      <small *ngIf="add.invalid && add.touched">Alguno de los campos de la dirección contienen valores invalidos</small>
+      <input type="submit" value="Submit" class="submit-btn">
+    </form>
+  </section>

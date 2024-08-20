@@ -44,6 +44,11 @@ export const routes: Routes = [
         loadChildren:() =>
           import('./data/data.module').then((m)=> m.DataModule),
       },
+      {
+        path:'junta',
+        loadChildren:() =>
+          import('./junta/junta.module').then((m)=> m.JuntaModule),
+      }
     ],
 
   },

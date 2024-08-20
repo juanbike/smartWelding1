@@ -1,0 +1,84 @@
+<mat-card>
+  <mat-card-title>Agregar Junta</mat-card-title>
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit()" #juntaForm="ngForm">
+      <div [formGroup]="junta1Form">
+        <mat-form-field appearance="fill">
+          <mat-label>Proyecto</mat-label>
+          <mat-select formControlName="proyecto" name="proyecto" [(value)]="selectedProyecto">
+            <mat-option *ngFor="let proyecto of proyectos" [value]="proyecto">
+              {{ proyecto }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Inspector</mat-label>
+          <mat-select formControlName="inspector" name="inspector" [(value)]="selectedInspector">
+            <mat-option
+              *ngFor="let inspector of inspectores"
+              [value]="inspector"
+            >
+              {{ inspector }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Soldador</mat-label>
+          <mat-select formControlName="soldador" name="soldador" [(value)]="selectedSoldador">
+            <mat-option *ngFor="let soldador of soldadores" [value]="soldador">
+              {{ soldador }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <table mat-table [dataSource]="juntas" class="mat-elevation-z8">
+        <ng-container matColumnDef="linea">
+          <th mat-header-cell *matHeaderCellDef>Línea</th>
+          <td mat-cell *matCellDef="let junta">
+            <mat-form-field appearance="fill">
+              <mat-select [(ngModel)]="junta.linea" name="linea" [(value)]="selectedLinea">
+                <mat-option *ngFor="let linea of lineas" [value]="linea">
+                  {{ linea }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="especificacion">
+          <th mat-header-cell *matHeaderCellDef>Especificación</th>
+          <td mat-cell *matCellDef="let junta">
+            <mat-form-field appearance="fill">
+              <mat-select
+                [(ngModel)]="junta.especificacion"
+                name="especificacion"
+                [(value)]="selectedEspecificacion"
+              >
+                <mat-option
+                  *ngFor="let especificacion of especificaciones"
+                  [value]="especificacion"
+                >
+                  {{ especificacion }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Agregar más columnas según sea necesario -->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <button mat-button (click)="addRow()">Agregar Fila</button>
+      <button mat-button (click)="removeRow()" [disabled]="juntas.length === 0">
+        Eliminar Fila
+      </button>
+      <button mat-raised-button type="submit">Guardar Junta</button>
+    </form>
+  </mat-card-content>
+</mat-card>
