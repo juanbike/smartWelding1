@@ -11,6 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAccordion, MatExpansionModule} from '@angular/material/expansion';
 import {  RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { VisibilityService } from '../../../commons/services/visibility.service';
 
 
 @Component({
@@ -35,13 +36,15 @@ export class PagesHomeComponent {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
-  constructor( private observer: BreakpointObserver, private cd: ChangeDetectorRef) {
+  constructor( private observer: BreakpointObserver, private cd: ChangeDetectorRef,
+    private visibilityService: VisibilityService) {}
 
-  }
-
+    selectOption(option: string) {
+      this.visibilityService.selectOption(option);
+    }
   ngAfterViewInit() {
 
-    this.observer.observe(['(max-width: 800px)']).subscribe((resp: any) => {
+    this.observer.observe(['(max-width: 2100px)']).subscribe((resp: any) => {
       if(resp.matches) {
         this.sidenav.mode = 'over';
         this.sidenav.close();

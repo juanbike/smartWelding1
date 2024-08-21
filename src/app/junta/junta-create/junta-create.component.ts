@@ -20,7 +20,8 @@ import { map } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { Console } from 'node:console';
+import { MatCardModule } from '@angular/material/card';
+import { VisibilityService } from '../../../commons/services/visibility.service';
 
 export interface Linea {
   name: string;
@@ -38,7 +39,8 @@ export interface Linea {
     MatInputModule,
     AsyncPipe,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
   ],
   templateUrl: './junta-create.component.html',
   styleUrl: './junta-create.component.scss',
@@ -94,10 +96,13 @@ export class JuntaCreateComponent implements OnInit, OnDestroy {
   myControlLineas = new FormControl(); //Variable para el campo de búsqueda de lineas
   filteredLineas: Observable<string[]> | undefined; //Variable para almacenar las lineas filtradas
 
+  selectedOption: string | null = null; //Variable para seleccionar la opcion de
+
   fb = inject(FormBuilder);
   constructor(
     private juntaService: JuntaService = inject(JuntaService),
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private visibilityService: VisibilityService
   ) {}
 
   juntaForm = this.fb.group({
@@ -302,6 +307,10 @@ export class JuntaCreateComponent implements OnInit, OnDestroy {
         );
       }
     );
+    //se suscribe al observable visibility
+    this.visibilityService.selectedOption$.subscribe(option => {
+      this.selectedOption = option;
+    });
   }
 
   //Filtra las lineas a medida que se escribe en el campo de búsqueda
@@ -312,6 +321,9 @@ export class JuntaCreateComponent implements OnInit, OnDestroy {
     );
   }
 
+  goBack() {
+    this.visibilityService.clearOption();
+  }
   /* *******************************************************************
 Muestra una notificación al usuario.
 ********************************************************************
