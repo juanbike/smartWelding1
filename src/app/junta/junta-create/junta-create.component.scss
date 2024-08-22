@@ -51,9 +51,9 @@ mat-card{
   margin: .5%;
 }
 
-.mat-4{
-  width: 4%;
-  margin: .5%;
+.mat-5{
+  width: 5%;
+  margin: .5%!important;
 }
 
 .mat-8{
@@ -120,3 +120,33 @@ p{
   border: #3498DB 3px solid;
   color: #3498DB;
 }
+
+.container {
+  display: flex;           /* Activa Flexbox */
+  flex-direction: row; /* Coloca los elementos en una columna */
+  align-items: center;    /* Centra los elementos horizontalmente (opcional) */
+  justify-content: flex-start; /* Alinea los elementos al inicio de la columna */
+ // height: 100vh;          /* Altura del contenedor (opcional) */
+  //background-color: #f0f0f0; /* Color de fondo (opcional) */
+  font-size: 1rem;
+    font-weight: 400;
+}
+
+
+.item {
+  //background-color: #6200ea; /* Color de fondo para los elementos */
+  //color: white;              /* Color del texto */
+  //margin: 10px;             /* Espaciado entre los elementos */
+  //padding: 20px;            /* Espaciado interno */
+ // width: auto;
+ // height: 10vh;               /* Ancho de los elementos */
+  text-align: center;       /* Centra el texto */
+  border-radius: 5px;      /* Bordes redondeados (opcional) */
+  font-size: 6px!important;
+}
+
+.letter-junta{
+  font-size: 12px!important;
+  font-weight: 400!important;
+}
+

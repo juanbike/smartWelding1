@@ -173,3 +173,36 @@ small{
   color: red;
   font-weight: bold;
 }
+
+.container{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .nestedFb {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    div {
+      display: flex;
+      gap: 10px;
+      label {
+        width: 200px;
+      }
+    }
+  }
+}
+
+.letter-junta{
+  font-size: 12px!important;
+  font-weight: 400!important;
+
+}
+
