@@ -1,232 +1,85 @@
-<form [formGroup]="juntaForm" (ngSubmit)="onFormSubmitted()">
-  <mat-card>
-    <mat-card-header class="fondo">
-      <mat-card-title>Formulario de Registro de Soldaduras</mat-card-title>
-      <mat-card-subtitle class="fondo"
-        >Ingrese los datos de la Soldadura</mat-card-subtitle
-      >
-    </mat-card-header>
-    <mat-card-content>
-      <!--sección proyecto-juntas-->
-      <div formGroupName="proyectoInfo" class="nestedFb">
-        <!--Proyecto-->
+<!--
+ Formulario con la directiva ngModel
+<div
+  style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  "
+>
+  <form action="">
 
-        <mat-form-field class="mat-12" appearance="fill">
-          <mat-label>Proyecto</mat-label>
-          <mat-select
-            formControlName="proyectos"
-            name="proyectos"
-            [(value)]="selectedProyecto"
-          >
-            <mat-option *ngFor="let proyecto of proyectos" [value]="proyecto">
-              {{ proyecto }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
 
-        <!--Inspector-->
-
-        <mat-form-field class="mat-12" appearance="fill">
-          <mat-label>Inspector</mat-label>
-          <mat-select
-            formControlName="inspectores"
-            [(value)]="selectedInspector"
-          >
-            <mat-option
-              *ngFor="let inspector of inspectores"
-              [value]="inspector"
-            >
-              {{ inspector }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <!--soldador-->
-
-        <mat-form-field class="mat-12" appearance="fill">
-          <mat-label>Soldador</mat-label>
-          <mat-select formControlName="soldadores" [(value)]="selectedSoldador">
-            <mat-option *ngFor="let soldador of soldadores" [value]="soldador">
-              {{ soldador }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name"  name="name" [(ngModel)]="formData.name" />
       </div>
 
-      <!--sección juntas-->
-      <div formGroupName="juntaInfo">
-        <h1>Agregar Junta:</h1>
-        @for(juntasInfoGroup of juntasInfoGroups.controls; track $index){
-        <div [formGroupName]="$index" class="letter-junta">
-          <h2>Junta{{ $index + 1 }}</h2>
-          <div class="container">
-            <div class="item mat-5">
-              <mat-form-field appearance="fill">
-                <mat-label>N0</mat-label>
-                <mat-select formControlName="nominal0" [(value)]="selectedN0">
-                  <mat-option *ngFor="let n0 of n0s" [value]="n0">
-                    {{ n0 }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="formData.email" />
+      </div>
 
-            <div class="item mat-5">
-              <mat-form-field appearance="fill">
-                <mat-label>N1</mat-label>
-                <mat-select formControlName="nominal1" [(value)]="selectedN1">
-                  <mat-option *ngFor="let n1 of n1s" [value]="n1">
-                    {{ n1 }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="formData.password" />
+      </div>
 
-            <!--
-    <div class="item mat-16">
-      <mat-form-field appearance="fill">
-        <mat-label>Linea</mat-label>
-        <input
-          type="text"
-          matInput
-          [formControl]="myControlLineas"
-          [matAutocomplete]="auto"
-        />
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          @for ( linea of filteredLineas | async; track linea) {
-          <mat-option [value]="linea">{{ linea }}</mat-option>
-          }
-        </mat-autocomplete>
-      </mat-form-field>
-    </div>
-    -->
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+  </form>
+  {{ formData | json}}
+</div>
+-->
 
-            <div class="item mat-16">
-              <mat-form-field appearance="fill">
-                <mat-label>Linea</mat-label>
-                <mat-select
-                  id="$index"
-                  formControlName="linea"
-                  name="linea"
-                  [(value)]="selectedLinea"
-                >
-                  <mat-option *ngFor="let linea of lineas" [value]="linea">
-                    {{ linea }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+<!--Formulario Reactivo-->
+<div
+  style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  "
+>
+  <form [formGroup]="formData">
 
-            <div class="item mat-5">
-              <mat-form-field appearance="fill">
-                <mat-label>Especificación</mat-label>
-                <mat-select
-                  formControlName="especificacion"
-                  [(value)]="selectedEspecificacion"
-                >
-                  <mat-option
-                    *ngFor="let especificacion of especificaciones"
-                    [value]="especificacion"
-                  >
-                    {{ especificacion }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
 
-            <div class="item mat-8">
-              <mat-form-field appearance="fill">
-                <mat-label>Schedule</mat-label>
-                <mat-select
-                  formControlName="schedule"
-                  [(value)]="selectedSchedule"
-                >
-                  <mat-option
-                    *ngFor="let schedule of schedules"
-                    [value]="schedule"
-                  >
-                    {{ schedule }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name"  name="name" formControlName="name" />
+      </div>
 
-            <div class="item mat-8">
-              <mat-form-field appearance="fill">
-                <mat-label>Tipo Extremo</mat-label>
-                <mat-select
-                  formControlName="textremo"
-                  [(value)]="selectedTextremo"
-                >
-                  <mat-option
-                    *ngFor="let textremo of textremos"
-                    [value]="textremo"
-                  >
-                    {{ textremo }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" formControlName="email" />
+      </div>
 
-            <div class="item mat-8">
-              <mat-form-field appearance="fill">
-                <mat-label>Tipo Material</mat-label>
-                <mat-select
-                  formControlName="tmaterial"
-                  [(value)]="selectedTmaterial"
-                >
-                  <mat-option
-                    *ngFor="let tmaterial of tmaterials"
-                    [value]="tmaterial"
-                  >
-                    {{ tmaterial }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" formControlName="password" />
+      </div>
 
-            <div class="item mat-8">
-              <mat-form-field appearance="fill">
-                <mat-label>Material</mat-label>
-                <mat-select
-                  formControlName="material"
-                  [(value)]="selectedMaterial"
-                >
-                  <mat-option
-                    *ngFor="let material of materials"
-                    [value]="material"
-                  >
-                    {{ material }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
 
-            <!--boton eliminar juntas-->
-            <div>
-              <button type="button" (click)="deleteJunta($index)">
-                <button
-                  mat-fab
-                  aria-label="Example icon button with a delete icon"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </button>
-            </div>
+      <div formArrayName="additionalEmails">
+        @for(email of additionalEmails.controls; track $index){
+
+          <div class="additionalEmails">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" [formControlName]="$index" />
           </div>
-        </div>
-        <!--formGroupName-->
 
+          <button type="button" (click)="removeEmail($index)"></button>
         }
       </div>
-    </mat-card-content>
-  </mat-card>
-  <button type="button" (click)="addJunta()">
-    <button mat-fab aria-label="Example icon button with a delete icon">
-      <mat-icon>add</mat-icon>
-    </button>
-  </button>
 
-  <button type="submit">Submit</button>
-  {{ juntaForm.value | json }}
-</form>
+
+      <div>
+        <button type="button" (click)="addEmail()">Add Email</button>
+        <button type="submit">Submit</button>
+      </div>
+   
+  </form>
+  <!--{{ formData | json}}-->
+</div>

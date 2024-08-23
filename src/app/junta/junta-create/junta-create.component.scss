@@ -1,152 +1,20 @@
-.form-row {
+form {
   display: flex;
-  gap: 16px; /* Adds space between the two mat-select elements */
-}
+  flex-direction: column;
+  gap: 20px;
 
-.mat-form-field {
-  flex: 1;
-}
+  div {
+    display: flex;
+    gap: 10px;
+    label {
+      width: 200px;
+      }
+    }
 
-.content{
-  font-size: 2rem!important;
-  color: lightgray;
-}
+    .additionalEmails {
+      display: flex;
+      gap: 10px;
+    }
 
-mat-card{
-  margin: 2%;
-  text-align: left;
-}
-
-.mat-mdc-form-field {
-  width: 98%;
-  margin: 1%;
-}
-
-.mat-50{
-  width: 48%;
-  margin: 1%;
-}
-
-.mat-100{
-  width: 95%;
-  margin: .5%;
-}
-
-.mat-25{
-  width: 25%;
-  margin: .5%;
-}
-
-.mat-35{
-  width: 35%;
-  margin: .5%;
-}
-.mat-12{
-  width: 12%;
-  margin: .5%;
-}
-
-.mat-6{
-  width: 6%;
-  margin: .5%;
-}
-
-.mat-5{
-  width: 5%;
-  margin: .5%!important;
-}
-
-.mat-8{
-  width: 8%;
-  margin: .5%;
-}
-
-.mat-18{
-  width: 18%;
-  margin: 1%;
-}
-
-button{
-  margin: 2px;
-}
-
-
-.modal {
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 150px auto;
-  padding: 30px 100px;
-  border: 1px solid #888;
-  width: 40%;
-  border-radius: 5px;
-}
-
-p{
-  margin: 10px 0px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.modal-actions{
-  padding-right: 30px;
-  padding-top: 20px;
-  text-align: right;
-}
-
-.button{
-  border: none;
-  padding: 10px 20px;
-  margin: 0px 5px;
-}
-
-.btn-ok{
-  background-color: #3498DB;
-  border: #3498DB 3px solid;
-  color: white;
-}
-.btn-cancel{
-  border: #3498DB 3px solid;
-  color: #3498DB;
-}
-
-.container {
-  display: flex;           /* Activa Flexbox */
-  flex-direction: row; /* Coloca los elementos en una columna */
-  align-items: center;    /* Centra los elementos horizontalmente (opcional) */
-  justify-content: flex-start; /* Alinea los elementos al inicio de la columna */
- // height: 100vh;          /* Altura del contenedor (opcional) */
-  //background-color: #f0f0f0; /* Color de fondo (opcional) */
-  font-size: 1rem;
-    font-weight: 400;
-}
-
-
-.item {
-  //background-color: #6200ea; /* Color de fondo para los elementos */
-  //color: white;              /* Color del texto */
-  //margin: 10px;             /* Espaciado entre los elementos */
-  //padding: 20px;            /* Espaciado interno */
- // width: auto;
- // height: 10vh;               /* Ancho de los elementos */
-  text-align: center;       /* Centra el texto */
-  border-radius: 5px;      /* Bordes redondeados (opcional) */
-  font-size: 6px!important;
-}
-
-.letter-junta{
-  font-size: 12px!important;
-  font-weight: 400!important;
-}
+  }
 
