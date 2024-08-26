@@ -111,10 +111,12 @@ private fetchMaterials(): void {
   // Realiza la solicitud HTTP utilizando el servicio 'WelderService'
   this.subscription = this.materialService.fechMaterials().subscribe(
     (data) => {
-
       // Almacena los datos de la respuesta en la propiedad 'welders'
       this.materials = data;
-      // Asigna los datos a la fuente de datos para renderizar la tabla
+      if(!this.materials || this.materials.length === 0){
+        this.openSnackBar('No se encontraron registros, agregar materiales', 'Cerrar')
+      }else{
+         // Asigna los datos a la fuente de datos para renderizar la tabla
       this.dataSource = new MatTableDataSource(this.materials);
 
       this.dataSource.paginator = this.paginator; // Asigna el paginador a la fuente de datos
@@ -122,9 +124,9 @@ private fetchMaterials(): void {
       this.openSnackBar(
         'Recuperando registros de la base de datos',
         'Cerrar'
-      );
-    },
-    // Maneja errores en la solicitud HTTP
+      )
+      }
+      // Maneja errores en la solicitud HTTP
     (error: HttpErrorResponse) => {
       // Manejo de errores más detallado
       let errorMessage = 'Ocurrió un error al cargar las Soldadoress.';
@@ -160,6 +162,7 @@ private fetchMaterials(): void {
       // Muestra un mensaje de error utilizando MatSnackBar
       this.openSnackBar(errorMessage, 'Cerrar');
     }
+  }
   );
 }
 

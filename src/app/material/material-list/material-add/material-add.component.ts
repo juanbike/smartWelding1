@@ -96,8 +96,8 @@ Representamos y validamos el conjunto de datos para el formulario
 materialForm = new FormGroup({
   tipo: new FormControl('', [
     Validators.required,
-    Validators.minLength(15),
-    Validators.maxLength(25),
+    Validators.minLength(3),
+    Validators.maxLength(30),
   ]),
   colada: new FormControl('', [
     Validators.required,
@@ -106,19 +106,23 @@ materialForm = new FormGroup({
   ]),
   schedule: new FormControl('', [
     Validators.required,
-    Validators.maxLength(2),
+    Validators.minLength(2),
+    Validators.maxLength(8),
   ]),
   textremo: new FormControl('', [
     Validators.required,
-    Validators.maxLength(12),
+    Validators.minLength(3),
+    Validators.maxLength(30),
   ]),
   tmaterial: new FormControl('', [
     Validators.required,
-    Validators.maxLength(20),
+    Validators.minLength(3),
+    Validators.maxLength(30),
   ]),
   material: new FormControl('', [
     Validators.required,
-    Validators.maxLength(25),
+    Validators.minLength(3),
+    Validators.maxLength(30),
   ])
 });
 
@@ -142,10 +146,10 @@ OnAddMaterial(): void {
   this.subscription = this.materialService.addMaterial(material).subscribe(
     (response: Material) => {
       this.allMaterials.push(response);
-      this.openSnackBar('El registro del Soldador se creó exitosamente', 'Cerrar');
+      this.openSnackBar('El registro del material se creó exitosamente', 'Cerrar');
     },
     (error: HttpErrorResponse) => {
-      this.openSnackBar('Error al crear el registro del Soldador', 'Cerrar');
+      this.openSnackBar('Error al crear el registro del Material', 'Cerrar');
     }
   );
 }

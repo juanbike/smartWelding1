@@ -34,7 +34,7 @@
 </div>
 -->
 
-<!--Formulario Reactivo-->
+<!--Formulario Reactivo básico
 <div
   style="
     display: flex;
@@ -43,7 +43,7 @@
     height: 100vh;
   "
 >
-  <form [formGroup]="formData">
+  <form [formGroup]="formData" (ngSubmit)="onSubmitted()">
 
 
       <div>
@@ -62,7 +62,7 @@
       </div>
 
 
-      <div formArrayName="additionalEmails">
+      <div formArrayName="additionalEmails" class="additionalEmails">
         @for(email of additionalEmails.controls; track $index){
 
           <div class="additionalEmails">
@@ -70,7 +70,7 @@
             <input type="email" id="email" name="email" [formControlName]="$index" />
           </div>
 
-          <button type="button" (click)="removeEmail($index)"></button>
+          <button type="button" (click)="removeEmail($index)">Remove Email</button>
         }
       </div>
 
@@ -79,7 +79,122 @@
         <button type="button" (click)="addEmail()">Add Email</button>
         <button type="submit">Submit</button>
       </div>
-   
+      <div>
+        {{ formData.value | json}}
+      </div>
   </form>
-  <!--{{ formData | json}}-->
+  
+</div>
+ -->
+
+
+ <!---- Formulario anidado
+<div style="
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ height: 100vh;
+">
+
+  <for [formGroup]="userProfileForm">
+    <!--sección de información personal
+    <div formGroupName="personalInfo">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name" />
+      </div>
+
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" />
+      </div>
+
+    </div>
+
+    <!-- Direcciones
+
+    <div formGroupName="address">
+      <div>
+        <label for="street">Street:</label>
+        <input type="text" id="street" formControlName="street" />
+      </div>
+
+      <div>
+        <label for="city">City:</label>
+        <input type="city" id="city" formControlName="city" />
+      </div>
+
+      <div class="zipCode">
+        <label for="zipcode">Zip Code:</label>
+        <input type="zipcode" id="zipcode" formControlName="zipcode" />
+      </div>
+
+      <button type="submit">Submit</button>
+      {{ userProfileForm.value | json}}
+    </div>
+   
+  </for>
+ 
+</div>
+--->
+
+
+<!--- Formularios Dinamicos---->
+
+<div style="
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ height: 100vh;
+">
+
+  <for [formGroup]="userProfileForm">
+    <!--sección de información personal-->
+    <div formGroupName="personalInfo">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name" />
+      </div>
+
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" />
+      </div>
+
+    </div>
+
+    <!-- Direcciones-->
+
+    <div formGroupName="addresses">
+      @for(addresGroup of addressGroups.controls; track $index){
+        <div formGroupName="$index" class="nestedFb">
+          <div>
+            <label for="street">Street:</label>
+            <input type="text" id="street" formControlName="street" />
+          </div>
+    
+          <div>
+            <label for="city">City:</label>
+            <input type="city" id="city" formControlName="city" />
+          </div>
+    
+          <div class="zipCode">
+            <label for="zipcode">Zip Code:</label>
+            <input type="zipcode" id="zipcode" formControlName="zipcode" />
+          </div>
+
+          <div type="button" (click)="removeAddress($index)">Remove Address</div>
+
+        </div>
+      }
+      
+      <div type="button" (click)="addAddress()">Add Address</div>
+
+
+      <button type="submit">Submit</button>
+      {{ userProfileForm.value | json}}
+    </div>
+   
+  </for>
+ 
 </div>

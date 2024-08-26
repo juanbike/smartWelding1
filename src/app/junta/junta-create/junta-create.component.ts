@@ -26,27 +26,79 @@ export class JuntaCreateComponent {
   };
 */
 
-formData = this.fb.group({
-  name: '',
-  email: '',
-  password: '',
-  additionalEmails: this.fb.array([]), // Creamos un FormArray vacio para los emails adicionales
-});
+  /*
+  formData = this.fb.group({
+    name: '',
+    email: '',
+    password: '',
+    additionalEmails: this.fb.array([]), // Creamos un FormArray vacio para los emails adicionales
+  });
+  
+  
+    get additionalEmails() {  // Creamos un getter para acceder al FormArray de emails adicionales
+      return this.formData.get('additionalEmails') as FormArray;
+    }
+  
+    removeEmail(index: number) { // Creamos un metodo para eliminar un email adicional
+      this.additionalEmails.removeAt(index);
+    }
+  
+    addEmail() { // Creamos un metodo para agregar un email adicional
+      this.additionalEmails.push(this.fb.control(''));
+    }
+  
+    onSubmitted(){
+      console.log(this.formData.value)
+    }
+  
+    */
 
+  /*
+    FORMULARIO ANIDADO
+  userProfileForm = this.fb.group({
+    personalInfo: this.fb.group({
+      name:'',
+      email: '',
+    }),
+    address: this.fb.group({
+      street: '',
+      city: '',
+      zipcode: '',
+    }),
+  });
+*/
 
-  get additionalEmails() {  // Creamos un getter para acceder al FormArray de emails adicionales
-    return this.formData.get('additionalEmails') as FormArray;
+  // FORMULARIO DINAMICO
+  userProfileForm = this.fb.group({
+    personalInfo: this.fb.group({
+      name: '',
+      email: '',
+    }),
+    addresses: this.fb.array([
+      this.fb.group({
+        street: '',
+        city: '',
+        zipcode: '',
+      }),
+    ]),
+  });
+
+  get addressGroups(){
+    return this.userProfileForm.get('addresses') as FormArray;
   }
 
-  removeEmail(index: number) { // Creamos un metodo para eliminar un email adicional
-    this.additionalEmails.removeAt(index);
+  addAddress(){
+    this.addressGroups.push(
+      this.fb.group({
+        street: '',
+        city: '',
+        zipcode: '',
+      })
+    )
   }
 
-  addEmail() { // Creamos un metodo para agregar un email adicional
-    this.additionalEmails.push(this.fb.control(''));
+  removeAddress(index: number){
+    this.addressGroups.removeAt(index)
   }
-
-
-
 }
 

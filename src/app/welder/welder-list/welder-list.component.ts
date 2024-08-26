@@ -59,7 +59,7 @@ export class WelderListComponent implements OnInit, OnDestroy {
   dataSource!: MatTableDataSource<Welder>; // Variable dataSource para la fuente de datos de la tabla de soldadores
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Variable para el paginador
   @ViewChild(MatSort) sort!: MatSort; // Variable para el sort
-  subscription : any; //Variable para controlar la subscripcion a los datos
+  subscription: any; //Variable para controlar la subscripcion a los datos
   welders: any; // Variable para almacenar los datos de la API
   showModalAgregarInspectores: boolean = false; // Variable para controlar la visibilidad del formulario para agregar inspectores
   showModalEditarInspector: boolean = false; // Variable para controlar la visibilidad del formulario para edita inspectores
@@ -69,112 +69,117 @@ export class WelderListComponent implements OnInit, OnDestroy {
     private welderService: WelderService = inject(WelderService), //inicializamos el servicio para la tabla de inspectores
     public dialog: MatDialog, //inicializamos el cuadro de dialogo: Eliminar Soldadores
     private snackBar: MatSnackBar, //inicializamos el snackbar para mostrar notificaciones al usuario
-  ) {}
+  ) { }
 
-//columnas de la tabla soldadores
-displayedColumns: string[] = [
-  'id',
-  'nombre',
-  'apellido',
-  'identificacion',
-  'valores',
-  'estampa',
-  'calificacion',
-  'basemetal',
-  'numerop',
-  'telefono',
-  'email',
-  'Acciones',
-];
+  //columnas de la tabla soldadores
+  displayedColumns: string[] = [
+    'id',
+    'nombre',
+    'apellido',
+    'identificacion',
+    'valores',
+    'estampa',
+    'calificacion',
+    'basemetal',
+    'numerop',
+    'telefono',
+    'email',
+    'Acciones',
+  ];
 
-   /*
+  /*
 ********************************************************************
 configuramos el snackbar Muestra una notificación al usuario.
 ********************************************************************
 */
 
-openSnackBar(message: string, action: string) {
-  const config = new MatSnackBarConfig();
-  config.panelClass = ['blue-snackbar'];
-  config.horizontalPosition = 'end'; // Posición horizontal: 'start' | 'center' | 'end' | 'left' | 'right'
-  config.verticalPosition = 'top'; // Posición vertical: 'top' | 'bottom'
-  config.duration = 3000; // Duración en milisegundos (opcional)
-  this.snackBar.open(message, action, config);
-}
+  openSnackBar(message: string, action: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['blue-snackbar'];
+    config.horizontalPosition = 'end'; // Posición horizontal: 'start' | 'center' | 'end' | 'left' | 'right'
+    config.verticalPosition = 'top'; // Posición vertical: 'top' | 'bottom'
+    config.duration = 3000; // Duración en milisegundos (opcional)
+    this.snackBar.open(message, action, config);
+  }
 
-//funcion para obtener todos los inspectores
-ngOnInit(): void {
-  this.fetchWelders();
-}
+  //funcion para obtener todos los inspectores
+  ngOnInit(): void {
+    this.fetchWelders();
+  }
 
-/*
-********************************************************************
-Metodo para obtener los datos de la API y mostrarlos en la tabla
-********************************************************************
-*/
+  /*
+  ********************************************************************
+  Metodo para obtener los datos de la API y mostrarlos en la tabla
+  ********************************************************************
+  */
 
-private fetchWelders(): void {
-  // Realiza la solicitud HTTP utilizando el servicio 'WelderService'
-  this.subscription = this.welderService.fetchWelders().subscribe(
-    (data) => {
+  private fetchWelders(): void {
+    // Realiza la solicitud HTTP utilizando el servicio 'WelderService'
+    this.subscription = this.welderService.fetchWelders().subscribe(
+      (data) => {
 
-      // Almacena los datos de la respuesta en la propiedad 'welders'
-      this.welders = data;
-      // Asigna los datos a la fuente de datos para renderizar la tabla
-      this.dataSource = new MatTableDataSource(this.welders);
+        // Almacena los datos de la respuesta en la propiedad 'welders'
+        this.welders = data;
 
-      this.dataSource.paginator = this.paginator; // Asigna el paginador a la fuente de datos
-      this.dataSource.sort = this.sort; // Asigna el sort a la fuente de datos
-      this.openSnackBar(
-        'Recuperando registros de la base de datos',
-        'Cerrar'
-      );
-    },
-    // Maneja errores en la solicitud HTTP
-    (error: HttpErrorResponse) => {
-      // Manejo de errores más detallado
-      let errorMessage = 'Ocurrió un error al cargar las Soldadoress.';
-
-      if (error.status === 0) {
-        errorMessage =
-          'No se pudo conectar al servidor. Verifique su conexión a internet.';
-      } else if (error.status >= 400 && error.status < 500) {
-        // Errores del lado del cliente (por ejemplo, errores de validación)
-        errorMessage =
-          'Error en la solicitud. Verifique los datos ingresados.';
-        if (error.status == 400) {
-          errorMessage =
-            'La solicitud no pudo ser entendida o procesada por el servidor debido a una sintaxis incorrecta o a parámetros inválidos..';
-        } else if (error.status == 401) {
-          errorMessage =
-            'El cliente debe autenticarse para obtener la respuesta solicitada.';
-        } else if (error.status == 403) {
-          errorMessage =
-            'El cliente no tiene los privilegios necesarios para obtener la respuesta solicitada.';
-        } else if (error.status == 404) {
-          errorMessage =
-            'El recurso solicitado no fue encontrado en el servidor';
-        } else if (error.status == 405) {
-          errorMessage =
-            'El servidor no admite la solicitud HTTP solicitada.';
+        // Verifica si no hay datos
+        if (!this.welders || this.welders.length === 0) {
+          this.openSnackBar('no se encontraron registros, agregar soladores', 'Cerrar')
+        } else {
+          // Asigna los datos a la fuente de datos para renderizar la tabla
+          this.dataSource = new MatTableDataSource(this.welders);
+          this.dataSource.paginator = this.paginator; // Asigna el paginador a la fuente de datos
+          this.dataSource.sort = this.sort; // Asigna el sort a la fuente de datos
+          this.openSnackBar(
+            'Recuperando registros de la base de datos',
+            'Cerrar'
+          )
         }
-      } else if (error.status >= 500) {
-        // Errores del lado del servidor
-        errorMessage =
-          'Error interno del servidor. Inténtelo de nuevo más tarde o contacte a soporte técnico.';
+        // Maneja errores en la solicitud HTTP
+        (error: HttpErrorResponse) => {
+          // Manejo de errores más detallado
+          let errorMessage = 'Ocurrió un error al cargar las Soldadoress.';
+
+          if (error.status === 0) {
+            errorMessage =
+              'No se pudo conectar al servidor. Verifique su conexión a internet.';
+          } else if (error.status >= 400 && error.status < 500) {
+            // Errores del lado del cliente (por ejemplo, errores de validación)
+            errorMessage =
+              'Error en la solicitud. Verifique los datos ingresados.';
+            if (error.status == 400) {
+              errorMessage =
+                'La solicitud no pudo ser entendida o procesada por el servidor debido a una sintaxis incorrecta o a parámetros inválidos..';
+            } else if (error.status == 401) {
+              errorMessage =
+                'El cliente debe autenticarse para obtener la respuesta solicitada.';
+            } else if (error.status == 403) {
+              errorMessage =
+                'El cliente no tiene los privilegios necesarios para obtener la respuesta solicitada.';
+            } else if (error.status == 404) {
+              errorMessage =
+                'El recurso solicitado no fue encontrado en el servidor';
+            } else if (error.status == 405) {
+              errorMessage =
+                'El servidor no admite la solicitud HTTP solicitada.';
+            }
+          } else if (error.status >= 500) {
+            // Errores del lado del servidor
+            errorMessage =
+              'Error interno del servidor. Inténtelo de nuevo más tarde o contacte a soporte técnico.';
+          }
+          // Muestra un mensaje de error utilizando MatSnackBar
+          this.openSnackBar(errorMessage, 'Cerrar');
+        }
       }
-      // Muestra un mensaje de error utilizando MatSnackBar
-      this.openSnackBar(errorMessage, 'Cerrar');
-    }
-  );
-}
+    );
+  }
 
 
- /*
-*********************************************************************************************************************************************
-Metodo para filtar los datos de la tabla
-**************************************************************************************************************************************************
-*/
+  /*
+ *********************************************************************************************************************************************
+ Metodo para filtar los datos de la tabla
+ **************************************************************************************************************************************************
+ */
   // Metodo para filtrar la tabla
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -185,26 +190,26 @@ Metodo para filtar los datos de la tabla
     }
   }
 
- /*
-********************************************************************
-Metodo para mostrar el modal de agregar inspector
-********************************************************************
-*/
+  /*
+ ********************************************************************
+ Metodo para mostrar el modal de agregar inspector
+ ********************************************************************
+ */
 
-OnAddInspector(): void {
-  this.showModalAgregarInspectores = true; // Mostrar el componente modal Formulario para agregar inspectores
-}
-
- /*
-********************************************************************
-Metodo para des suscribirnos del servicio
-********************************************************************
-*/
-ngOnDestroy() {
-  if (this.subscription) {
-    this.subscription.unsubscribe();
+  OnAddInspector(): void {
+    this.showModalAgregarInspectores = true; // Mostrar el componente modal Formulario para agregar inspectores
   }
-}
+
+  /*
+ ********************************************************************
+ Metodo para des suscribirnos del servicio
+ ********************************************************************
+ */
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
 
   /*
@@ -214,113 +219,113 @@ Método para mostrar un mensaje al usuario cuando desea eliminar un registro de 
 */
 
 
-openConfirmDialog(id: string): void {
-  const dialogRef = this.dialog.open(BoxDialogComponent, {
-    width: '250px',
-    data: {
-      message: '¿Deseas eliminar este Soldador?',
-      buttonText: 'Eliminar',
-      id: id,
-    },
-  });
+  openConfirmDialog(id: string): void {
+    const dialogRef = this.dialog.open(BoxDialogComponent, {
+      width: '250px',
+      data: {
+        message: '¿Deseas eliminar este Soldador?',
+        buttonText: 'Eliminar',
+        id: id,
+      },
+    });
 
-  dialogRef.afterClosed().subscribe((result) => {
-    if (result && result.confirmed) {
-      // El usuario hizo clic en "Eliminar", así que se eliminará el registro de inspectores
-      this.onDeleteWelder(result.id);
-    } else {
-      // El usuario hizo clic en "Cancelar" o cerró el cuadro de diálogo
-      this.openSnackBar('Eliminación cancelada', 'Cerrar');
-    }
-  });
-}
-
-
-
- /*
-********************************************************************
-Metodo para eliminar un soldador
-********************************************************************
-*/
-
-onDeleteWelder(id: Number): void {
-
-
-  this.welderService.deleteWelder(id).subscribe(
-    () => {
-      this.openSnackBar('Registro eliminado', 'Cerrar');
-      this.fetchWelders(); // Recarga la tabla con los nuevos datos
-    },
-    (error: HttpErrorResponse) => {
-      this.openSnackBar(
-        'El registro del Soldador no se encuentra',
-        'Cerrar'
-      );
-
-    }
-  )
-}
-
-
- /*
-********************************************************************
-Metodo para mostrar el modal de editar inspector
-********************************************************************
-*/
-
-
-OnEditInspector(valor: string): void{
-  this.showModalEditarInspector = true;
-  this.idSoldaduraPadre = valor; // Asigna el ID del registro obtenido
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.confirmed) {
+        // El usuario hizo clic en "Eliminar", así que se eliminará el registro de inspectores
+        this.onDeleteWelder(result.id);
+      } else {
+        // El usuario hizo clic en "Cancelar" o cerró el cuadro de diálogo
+        this.openSnackBar('Eliminación cancelada', 'Cerrar');
+      }
+    });
   }
 
 
 
-/*
-*********************************************************************************************************************************
-recibo datos del componente hijo: editar-soldadura
-**********************************************************************************************************************************
-*/
+  /*
+ ********************************************************************
+ Metodo para eliminar un soldador
+ ********************************************************************
+ */
 
-recibirDatosdelHijoEditarSoldadura(event: boolean) {
-
-  this.showModalEditarInspector = false; // Ocultamos el modal del formulario editar soldadura
-  this.actualizarTabla()
-
-}
+  onDeleteWelder(id: Number): void {
 
 
+    this.welderService.deleteWelder(id).subscribe(
+      () => {
+        this.openSnackBar('Registro eliminado', 'Cerrar');
+        this.fetchWelders(); // Recarga la tabla con los nuevos datos
+      },
+      (error: HttpErrorResponse) => {
+        this.openSnackBar(
+          'El registro del Soldador no se encuentra',
+          'Cerrar'
+        );
+
+      }
+    )
+  }
 
 
-/*
-********************************************************************
-Actualiza toda la tabla tabla sin recargar la página
-********************************************************************
-*/
-actualizarTabla(): void {
-  this.welderService.fetchWelders().subscribe( (data: any[]) => { // Creamos un objeto fuente de datos para la tabla
-   this.dataSource = new MatTableDataSource(data); // Creamos un objeto fuente de datos para la tabla
-    this.dataSource.data = data; // Actualiza la tabla con los datos obtenidos
-    this.dataSource.paginator = this.paginator; // Asociamos la paginación a la tabla
-    this.dataSource.sort = this.sort; // Asociamos el ordenamiento a la tabla
-    this.table?.renderRows(); // Forzar la actualización de la vista
+  /*
+ ********************************************************************
+ Metodo para mostrar el modal de editar inspector
+ ********************************************************************
+ */
 
-  });
+
+  OnEditInspector(valor: string): void {
+    this.showModalEditarInspector = true;
+    this.idSoldaduraPadre = valor; // Asigna el ID del registro obtenido
   }
 
 
 
-    /*
+  /*
+  *********************************************************************************************************************************
+  recibo datos del componente hijo: editar-soldadura
+  **********************************************************************************************************************************
+  */
+
+  recibirDatosdelHijoEditarSoldadura(event: boolean) {
+
+    this.showModalEditarInspector = false; // Ocultamos el modal del formulario editar soldadura
+    this.actualizarTabla()
+
+  }
+
+
+
+
+  /*
+  ********************************************************************
+  Actualiza toda la tabla tabla sin recargar la página
+  ********************************************************************
+  */
+  actualizarTabla(): void {
+    this.welderService.fetchWelders().subscribe((data: any[]) => { // Creamos un objeto fuente de datos para la tabla
+      this.dataSource = new MatTableDataSource(data); // Creamos un objeto fuente de datos para la tabla
+      this.dataSource.data = data; // Actualiza la tabla con los datos obtenidos
+      this.dataSource.paginator = this.paginator; // Asociamos la paginación a la tabla
+      this.dataSource.sort = this.sort; // Asociamos el ordenamiento a la tabla
+      this.table?.renderRows(); // Forzar la actualización de la vista
+
+    });
+  }
+
+
+
+  /*
 *********************************************************************************************************************************
- recibo datos del componente hijo, es decir, el componente modal generar-qr. event es true y ocultamos el modal del formulario qr
+recibo datos del componente hijo, es decir, el componente modal generar-qr. event es true y ocultamos el modal del formulario qr
 **********************************************************************************************************************************
 */
-recibirDatosdeMA(event: boolean) {
+  recibirDatosdeMA(event: boolean) {
 
-  this.showModalAgregarInspectores = false; // Ocultar el componente modal agrEgar inspectores
-  this.actualizarTabla(); // Recarga la tabla con los nuevos datos
+    this.showModalAgregarInspectores = false; // Ocultar el componente modal agrEgar inspectores
+    this.actualizarTabla(); // Recarga la tabla con los nuevos datos
 
-}
+  }
 
 
 

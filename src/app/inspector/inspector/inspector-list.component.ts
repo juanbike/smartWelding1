@@ -116,16 +116,21 @@ private fetchInspectores() {
 
       // Almacena los datos de la respuesta en la propiedad 'Inspectores'
       this.inspectores = data;
-      // Asigna los datos a la fuente de datos para renderizar la tabla
-      this.dataSource = new MatTableDataSource(this.inspectores);
 
-      this.dataSource.paginator = this.paginator; // Asigna el paginador a la fuente de datos
-      this.dataSource.sort = this.sort; // Asigna el sort a la fuente de datos
-      this.openSnackBar(
-        'Recuperando registros de la base de datos',
-        'Cerrar'
-      );
-    },
+      // Verifica si no hay datos
+      if (!this.inspectores || this.inspectores.length === 0) {
+        this.openSnackBar('No se encontraron registros, agregar inspectores', 'Cerrar');
+      } else {
+      // Asigna los datos a la fuente de datos para renderizar la tabla
+        this.dataSource = new MatTableDataSource(this.inspectores);
+
+        this.dataSource.paginator = this.paginator; // Asigna el paginador a la fuente de datos
+        this.dataSource.sort = this.sort; // Asigna el sort a la fuente de datos
+        this.openSnackBar(
+          'Recuperando registros de la base de datos',
+          'Cerrar'
+      )
+    }
     // Maneja errores en la solicitud HTTP
     (error: HttpErrorResponse) => {
       // Manejo de errores más detallado
@@ -162,6 +167,7 @@ private fetchInspectores() {
       // Muestra un mensaje de error utilizando MatSnackBar
       this.openSnackBar(errorMessage, 'Cerrar');
     }
+  }
   );
 }
 
