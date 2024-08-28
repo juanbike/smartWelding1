@@ -58,12 +58,13 @@ export class DataProyectComponent implements OnDestroy {
       this.isError = true;
       return;
     }
-    console.log(this.selectedFile);
+   
    this.subscription = this.dataProyectService.uploadFile(this.selectedFile).subscribe(
       response =>{
         this.message= response.message;
         this.isError = false;
         this.openSnackBar('Operacion exitosa:' + this.message, 'Cerrar');
+        this.router.navigate(['/dashboard']) //salimos al dashboard si la operaciónm es exitosa
 
       },
       error =>{

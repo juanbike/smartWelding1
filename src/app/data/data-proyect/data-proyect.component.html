@@ -1,55 +1,33 @@
 <div class="modal">
   <div class="modal-content">
-      <mat-card>
-        <mat-card-header class="fondo">
-          <mat-card-title>Importa proyectos desde un archivo de excel</mat-card-title>
-          <mat-card-subtitle class="fondo"
-          Cargue el archivo excel
-            ></mat-card-subtitle
-          >
-        </mat-card-header>
+    <mat-card>
+      <mat-card-header class="fondo">
+        <mat-card-title>Importa proyectos desde un archivo de excel</mat-card-title>
+        <mat-card-subtitle class="fondo" Cargue el archivo excel></mat-card-subtitle>
+      </mat-card-header>
 
-        <!--nombre y apellido-->
-        <mat-card-content>
-          <!---Nombre-->
+      <!--nombre y apellido-->
+      <mat-card-content>
+        <!---Nombre-->
+        <input type="file" (change)="onFileSelected($event)" />
 
+      </mat-card-content>
 
-              <input
-                type = "file"
-                (change)="onFileSelected($event)"
+      <mat-card-footer>
+        <mat-card-actions>
+          <div style="margin: 2%; text-align: right">
+            <button mat-raised-button color="accen" type="submit" (click)="uploadFile()">
+              convertir
+            </button>
+            <button mat-raised-button type="submit" color="primary" (click)="navigateToDashboard()">
+              salir
+            </button>
 
-              />
+          </div>
+        </mat-card-actions>
 
+      </mat-card-footer>
 
-
-        </mat-card-content>
-
-        <mat-card-footer>
-          <mat-card-actions>
-            <div style="margin: 2%; text-align: right">
-              <button
-                mat-raised-button
-                color="accen"
-                type="submit"
-                (click)="uploadFile()"
-              >
-                convertir
-              </button>
-              <button
-
-                mat-raised-button
-                type="submit"
-                color="primary"
-                 (click)="navigateToDashboard()"
-              >
-                salir
-              </button>
-
-            </div>
-          </mat-card-actions>
-
-        </mat-card-footer>
-
-      </mat-card>
+    </mat-card>
   </div>
 </div>
